@@ -14,3 +14,9 @@ class FetchToken extends SigninEvent {
   // String password;
   // FetchLogin({required this.number, required this.password});
 }
+class FacebookLogin extends SigninEvent{
+
+}
+class GoogleLogin extends SigninEvent{
+
+}

@@ -7,6 +7,8 @@ import 'package:fursan_cart/repository/api/authentication/signup.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
 import 'package:fursan_cart/ui/widgets/splash/splash.dart';
 
+import 'repository/api/authentication/firbase/facebook.dart';
+import 'repository/api/authentication/firbase/googel.dart';
 import 'repository/bloc/user/signup/signup_bloc.dart';
 
 void main() async {
@@ -16,12 +18,13 @@ void main() async {
 // Ideal time to initialize
   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 //...
-
+  Facebook facebook = Facebook();
+  Google google = Google();
   ApiLogin apiLogin=ApiLogin();
   ApiSignUp apiSignUp=ApiSignUp();
   runApp(MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context)=>SigninBloc(apiLogin)),
+        BlocProvider(create: (BuildContext context)=>SigninBloc(apiLogin,google,facebook)),
         BlocProvider(create: (BuildContext context)=>SignupBloc(apiSignUp)),
 
       ],
