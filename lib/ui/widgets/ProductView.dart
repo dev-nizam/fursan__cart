@@ -1,0 +1,112 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+class ProductView extends StatefulWidget {
+  const ProductView({Key? key}) : super(key: key);
+
+  @override
+  State<ProductView> createState() => _ProductViewState();
+}
+
+class _ProductViewState extends State<ProductView> {
+  @override
+  Widget build(BuildContext context) {
+    final mHeight = MediaQuery.of(context).size.height;
+    final mWidth = MediaQuery.of(context).size.width;
+    return ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (ctx, index) {
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              height: mHeight * .205,
+              width: mWidth,
+              color: Colors.white,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: mWidth * .05,
+                  ),
+                  Container(
+                    height: mHeight * .17,
+                    width: mWidth * .35,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(Images[index]))),
+                  ),
+                  Container(
+                    height: mHeight * .1,
+                    width: mWidth * .5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: mHeight * .02,
+                        ),
+                        Text(
+                          NAME[index],
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        RatingBar.builder(
+                          itemSize: 20,
+                          initialRating: 3,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.currency_rupee_rounded,
+                              color: Colors.grey,
+                              size: 14,
+                            ),
+                            Text(
+                              Price[index],
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 14),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.favorite, color: Colors.orange, size: 19),
+                ],
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (ctx, index) {
+          return Divider(
+            thickness: 1,
+          );
+        },
+        itemCount: Images.length);
+  }
+
+  List Images = [
+    "https://rukminim1.flixcart.com/image/416/416/xif0q/air-conditioner-new/e/l/b/-original-imaggf36gs6p98gf.jpeg?q=70",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThaOZA4ek6wxHP_CeBYe40AaZD2e6S2oz-v4wZrvKNMonOqkhZxTUR0sDsAHrfPlr8-CE&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDzZQ7Q8sL3hRw68ucAF9f2EIo9P4iSRbT9bvHGkwvY5-8jnhCjOI-fIrVLA0GQ2Fjhfo&usqp=CAU",
+  ];
+  List NAME = [
+    "ac",
+    "LG 190 L Single Door Refrigerator ",
+    "LG Urbane LTE Smart Watch - Silver",
+  ];
+  List Price = [
+    "2000",
+    "5000",
+    "1000",
+  ];
+}

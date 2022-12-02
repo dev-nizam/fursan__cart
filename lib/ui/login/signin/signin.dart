@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
-import 'package:fursan_cart/ui/home/home.dart';
+import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/login/signup/signup.dart';
 
 class Signin extends StatefulWidget {
@@ -32,7 +32,7 @@ class _SigninState extends State<Signin> {
         if (state is SigninLoaded) {
           print("loaded");
           Navigator.push(
-              context, MaterialPageRoute(builder: (ctx) => Home()));
+              context, MaterialPageRoute(builder: (ctx) => MainHome()));
         }
         if (state is SigninError) {
           print("Error");

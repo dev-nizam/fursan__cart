@@ -56,6 +56,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
       try {
         await google.signInWithGoogle();
         emit(SigninLoaded());
+        print("google loaded");
       } catch (e) {
         print(e);
         emit(SigninError());

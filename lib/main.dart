@@ -16,7 +16,7 @@ void main() async {
   await Firebase.initializeApp();
 
 // Ideal time to initialize
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+
 //...
   Facebook facebook = Facebook();
   Google google = Google();

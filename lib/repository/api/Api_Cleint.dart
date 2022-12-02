@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
-  static final String basePath = "https://192.168.1.9:3010/api";
+  static final String basePath = "http://192.168.1.9:3010/api";
   String tokenn =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGIzY2xmZGwwMDAwd2NrZ2QyM2duZGlnIiwiZW1haWwiOiJhZG1pbjEyNEBnZmQuY29tIiwiaWF0IjoxNjY5Nzk1MDA3LCJleHAiOjE2NzAzOTk4MDd9.vftNz-DijA2_d4W_02XNSG67CP0-3kwOGkhSNXUyZ98";
   Future<Response> invokeAPI(

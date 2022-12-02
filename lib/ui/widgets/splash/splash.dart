@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:fursan_cart/ui/home/home.dart';
+import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/widgets/hello/hello.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
     if (prefs.getString('token') != null) {
       print(prefs.getString('token'));
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (ctx) => Home()));
+          .push(MaterialPageRoute(builder: (ctx) => MainHome()));
     } else {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (ctx) => const Hello()));

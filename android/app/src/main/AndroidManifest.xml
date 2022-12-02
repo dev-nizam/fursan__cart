@@ -3,6 +3,7 @@
 package="com.example.fursan_cart">
 <uses-permission android:name="android.permission.INTERNET"/>
 <application
+    android:usesCleartextTraffic="true"
     android:label="al_fursan_cart"
     android:name="${applicationName}"
     android:icon="@mipmap/ic_launcher">
