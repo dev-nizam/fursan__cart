@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fursan_cart/model/banner/BannerModel.dart';
+import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenBestOffers.dart';
 
@@ -11,54 +14,98 @@ class BestOffHome extends StatefulWidget {
 }
 
 class _BestOffHomeState extends State<BestOffHome> {
+   late List<BannerModel>bestoffers;
+  late List<BannerModel>bannermodel;
+  void initState() {
+    // TODO: implement initState
+    BlocProvider.of<BannerBloc>(context).add(FetchBanner());
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: mWidth * .04,
-              ),
-              const Text(
-                "Best Offers",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                width: mWidth * .53,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (ctx) => const BestOffers()));
-                },
-                child: const Text(
-                  "See all",
-                  style: TextStyle(
-                    fontSize: 20,
+    return BlocBuilder<BannerBloc, BannerState>(
+  builder: (context, state) {
+    if (state is BannerLoading) {
+      print(" best offers State.........Loading");
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (state is BannerError) {
+      print(" best offers State.........Error");
+      return RefreshIndicator(
+        onRefresh: () async {
+          return BlocProvider.of<BannerBloc>(context)
+              .add(FetchBanner());
+        },
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * .9,
+            // color: Colors.red,
+            child: Center(
+              child: Text("something went wrong"),
+            ),
+          ),
+        ),
+      );
+    }
+    if (state is BannerLoaded) {
+      print(" best offers state loaded.......");
+      // notificationModelClass = BlocProvider.of<NotificationBloc>(context)
+      //     .notificationModelClass;
+       bestoffers=
+          BlocProvider
+              .of<BannerBloc>(context)
+              .bestOffers;
+      return Container(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: mWidth * .04,
+                ),
+                const Text(
+                  "Best Offers",
+                  style:
+                  TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  width: mWidth * .53,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (ctx) => const BestOffers()));
+                  },
+                  child: const Text(
+                    "See all",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: mHeight * .015,
-          ),
-          Container(
-              height: mHeight * .21,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (ctx) => const ScreenProductDetails()));
-                },
+              ],
+            ),
+            SizedBox(
+              height: mHeight * .015,
+            ),
+            Container(
+                height: mHeight * .21,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (ctx, index) {
+
                       return Stack(
                         children: [
                           Padding(
@@ -67,98 +114,14 @@ class _BestOffHomeState extends State<BestOffHome> {
                               height: mHeight * .4,
                               width: mWidth * .37,
                               decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(.25),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: mHeight * .14,
-                                    width: mWidth,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10)),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.y0S49mbJJrew6_aXE46fpAHaEo%26pid%3DApi&f=1&ipt=786988322468856a8549b48d1e8419b3d1e84a78ad65a6aa833c8a838e83f4b4&ipo=images"),
-                                            fit: BoxFit.fill)),
-                                  ),
-                                  Container(
-                                    height: mHeight * .007,
-                                    color: const Color(0xffFFC113),
-                                  ),
-                                  Container(
-                                    height: mHeight * .06,
-                                    width: mWidth,
-                                    decoration: const BoxDecoration(
-                                        color: Color(0xffE2E2E2),
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10))),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: mHeight * .015,
-                                        ),
-                                        const Text(
-                                          "Big Deals",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const Text(
-                                          "Up to 10% off",
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: mHeight * .12,
-                            left: mWidth * .07,
-                            child: Container(
-                              height: mHeight * .04,
-                              width: mWidth * .32,
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(.70),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: mWidth * .02,
-                                  ),
-                                  const Text(
-                                    "Television",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  ),
-                                  SizedBox(
-                                    width: mWidth * .015,
-                                  ),
-                                  Container(
-                                    height: mHeight * .025,
-                                    width: mWidth * .005,
-                                    color: const Color(0xffFFC113),
-                                  ),
-                                  SizedBox(
-                                    width: mWidth * .045,
-                                  ),
-                                  Container(
-                                    height: mHeight * .03,
-                                    width: mWidth * .07,
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xffFFC113),
-                                        image: const DecorationImage(
-                                            image: AssetImage(
-                                                "asset/brand icons/image 3.png"),
-                                            fit: BoxFit.cover),
-                                        borderRadius: BorderRadius.circular(5)),
-                                  )
-                                ],
-                              ),
+                                  color: Colors.grey,
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "http://192.168.1.9:3010/api" +
+                                              "/banner/images/" + bestoffers[index].banner![0].url.toString()),
+                                      fit: BoxFit.cover)),
                             ),
                           ),
                           Positioned(
@@ -174,13 +137,6 @@ class _BestOffHomeState extends State<BestOffHome> {
                                   color: const Color(0xFFD70C4B),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                // child: Text(
-                                //   "best off",
-                                //   style: TextStyle(
-                                //       fontWeight: FontWeight.bold,
-                                //       fontSize: 50,
-                                //       color: Colors.black),
-                                // ),
                                 width: 90,
                                 height: 30,
                               ),
@@ -192,7 +148,8 @@ class _BestOffHomeState extends State<BestOffHome> {
                             bottom: 145,
                             right: 100,
                             child: RotationTransition(
-                              turns: const AlwaysStoppedAnimation(322 / 360),
+                              turns:
+                              const AlwaysStoppedAnimation(322 / 360),
                               child: Container(
                                 child: const Text(
                                   "Best off",
@@ -212,14 +169,20 @@ class _BestOffHomeState extends State<BestOffHome> {
                         width: 1,
                       );
                     },
-                    itemCount: 10),
-              )),
-          SizedBox(
-            height: mHeight * .02,
-          ),
-        ],
-      ),
+                    itemCount: bestoffers.length)),
+            SizedBox(
+              height: mHeight * .02,
+            ),
+          ],
+        ),
+      );
+    }
+    return Center(
+      child: Text("no response"),
     );
+  }
+);
+
   }
 }
 

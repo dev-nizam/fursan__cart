@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/repository/api/authentication/login.dart';
 import 'package:fursan_cart/repository/api/authentication/signup.dart';
+import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/widgets/splash/splash.dart';
 
 import 'repository/api/authentication/firbase/facebook.dart';
 import 'repository/api/authentication/firbase/googel.dart';
+import 'repository/api/banner/bannerApi.dart';
+import 'repository/api/brand/brandApi.dart';
+import 'repository/bloc/brand/brand_bloc.dart';
 import 'repository/bloc/user/signup/signup_bloc.dart';
 
 void main() async {
@@ -22,10 +27,14 @@ void main() async {
   Google google = Google();
   ApiLogin apiLogin=ApiLogin();
   ApiSignUp apiSignUp=ApiSignUp();
+  ApiBanner apiBanner=ApiBanner();
+  ApiBrand apiBrandr=ApiBrand();
   runApp(MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context)=>SigninBloc(apiLogin,google,facebook)),
         BlocProvider(create: (BuildContext context)=>SignupBloc(apiSignUp)),
+        BlocProvider(create: (context) => BannerBloc(apiBanner)),
+        BlocProvider(create: (context) => BrandBloc(apiBrandr)),
 
       ],
       child: MyApp()));
@@ -51,7 +60,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Splash(),
+      home: MainHome(),
     );
   }
 }

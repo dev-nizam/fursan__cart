@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fursan_cart/model/brand/BrandModel.dart';
+import 'package:fursan_cart/repository/bloc/brand/brand_bloc.dart';
 import 'package:fursan_cart/ui/home/Brand/ScreenBrand.dart';
 
 

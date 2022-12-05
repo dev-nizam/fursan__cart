@@ -76,6 +76,7 @@ flutter:
    - asset/Splash/
    - asset/Login/
    - asset/icons/
+   - asset/logo/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

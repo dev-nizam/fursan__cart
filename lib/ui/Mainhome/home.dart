@@ -1,5 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/ui/home/AppBar/Cart.dart';
+import 'package:fursan_cart/ui/home/Brand/BrandHome.dart';
+import 'package:fursan_cart/ui/home/SearchBarhome/SearchBarhome.dart';
+import 'package:fursan_cart/ui/home/bestoffer/BestOffHome.dart';
+import 'package:fursan_cart/ui/home/bestoffer/BestofHome.dart';
+
+import '../home/AppBar/Screenfavourites.dart';
+import '../home/Banner/BannerHome.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,53 +23,54 @@ class _HomeState extends State<Home> {
     final mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: Colors.white,
+
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Container(
-            height: mHeight * .055,
-            width: mWidth * .38,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("asset/intro/hello.png"),
-                    fit: BoxFit.fill)),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (ctx) => const ScreenFavourites()));
-              },
-              icon: const Icon(Icons.favorite_border),
-              color: Colors.black,
-            ),
-            IconButton(
-              onPressed: () {
-                // Navigator.push(
-                //     context, MaterialPageRoute(builder: (ctx) => const Cart()));
-              },
-              icon: const Icon(Icons.shopping_cart_outlined),
-              color: Colors.black,
-            ),
-          ],
+      backgroundColor: Colors.white,
+      elevation: 0,
+      title: Container(
+        height: mHeight * .055,
+        width: mWidth * .38,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("asset/logo/Logo1.png"),
+                fit: BoxFit.fill)),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (ctx) => const ScreenFavourites()));
+          },
+          icon: const Icon(Icons.favorite_border),
+          color: Colors.black,
         ),
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (ctx) => const Cart()));
+          },
+          icon: const Icon(Icons.shopping_cart_outlined),
+          color: Colors.black,
+        ),
+      ],
+    ),
         body: ListView(
           children: [
             Column(
               children: [
-                // SearchBarHome(),
-                // BannerHome(),
+                SearchBarHome(),
+                BannerHome(),
                 SizedBox(
                   height: mHeight * .015,
                 ),
-                // BrandHome(),
+                BrandHome(),
                 // TrendingHome(),
                 SizedBox(
                   height: mHeight * .015,
                 ),
-                // BestOffHome(),
+                BestOffHome(),
               ],
             ),
           ],
