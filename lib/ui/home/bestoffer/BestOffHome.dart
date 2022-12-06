@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/banner/BannerModel.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
-import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenBestOffers.dart';
 
 class BestOffHome extends StatefulWidget {

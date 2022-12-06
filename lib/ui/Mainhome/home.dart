@@ -4,7 +4,7 @@ import 'package:fursan_cart/ui/home/AppBar/Cart.dart';
 import 'package:fursan_cart/ui/home/Brand/BrandHome.dart';
 import 'package:fursan_cart/ui/home/SearchBarhome/SearchBarhome.dart';
 import 'package:fursan_cart/ui/home/bestoffer/BestOffHome.dart';
-import 'package:fursan_cart/ui/home/bestoffer/BestofHome.dart';
+
 
 import '../home/AppBar/Screenfavourites.dart';
 import '../home/Banner/BannerHome.dart';
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                   height: mHeight * .015,
                 ),
                 BrandHome(),
-                // TrendingHome(),
+                TrendingHome(),
                 SizedBox(
                   height: mHeight * .015,
                 ),
