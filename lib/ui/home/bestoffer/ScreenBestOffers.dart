@@ -1,16 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/model/banner/BannerModel.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenOfferProducts.dart';
 import 'package:fursan_cart/ui/widgets/WidgetAppBar.dart';
 
-class BestOffers extends StatefulWidget {
-  const BestOffers({Key? key}) : super(key: key);
+class BestOffersfull extends StatefulWidget {
+   BestOffersfull({Key? key, required this.bestoffers, }) : super(key: key);
 
+   final List<BannerModel>bestoffers;
   @override
-  State<BestOffers> createState() => _BestOffersState();
+  State<BestOffersfull> createState() => _BestOffersfullState();
 }
 
-class _BestOffersState extends State<BestOffers> {
+class _BestOffersfullState extends State<BestOffersfull> {
   bool search = true;
   @override
   Widget build(BuildContext context) {
@@ -87,136 +89,51 @@ class _BestOffersState extends State<BestOffers> {
               itemBuilder: (BuildContext context, int index) {
                 return Stack(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: mHeight * .17,
-                            width: mWidth,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.y0S49mbJJrew6_aXE46fpAHaEo%26pid%3DApi&f=1&ipt=786988322468856a8549b48d1e8419b3d1e84a78ad65a6aa833c8a838e83f4b4&ipo=images"),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10))),
-                          ),
-                          Container(
-                            height: mHeight * .007,
-                            color: Color(0xffFFC113),
-                          ),
-                          Container(
-                            height: mHeight * .06565,
-                            width: mWidth,
-                            decoration: BoxDecoration(
-                                color: Color(0xffE2E2E2),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10))),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: mHeight * .02,
-                                ),
-                                Text(
-                                  "Big Deals",
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "Up to 10% off",
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 125,
-                      left: mWidth * .04,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 17),
                       child: Container(
-                        height: mHeight * .05,
-                        width: mWidth * .35,
+                        height: mHeight * .4,
+                        width: mWidth * .37,
                         decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(.70),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: mWidth * .015,
-                            ),
-                            Text(
-                              "Television",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            SizedBox(
-                              width: mWidth * .015,
-                            ),
-                            Container(
-                              height: mHeight * .025,
-                              width: mWidth * .005,
-                              color: Color(0xffFFC113),
-                            ),
-                            SizedBox(
-                              width: mWidth * .045,
-                            ),
-                            Container(
-                              height: mHeight * .035,
-                              width: mWidth * .08,
-                              decoration: BoxDecoration(
-                                  color: Color(0xffFFC113),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          "asset/brand icons/image 3.png"),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(5)),
-                            )
-                          ],
-                        ),
+                            color: Colors.grey,
+                            borderRadius:
+                            BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "http://192.168.1.9:3010/api" +
+                                        "/banner/images/" + bestoffers[index].banner![0].url.toString()),
+                                fit: BoxFit.cover)),
                       ),
                     ),
                     Positioned(
-                      left: 1,
+                      left: 17,
                       top: 0,
-                      bottom: 0,
+                      bottom: 10,
                       child: ClipPath(
                         clipper: CustomPath(),
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
-                            color: Color(0xFFD70C4B),
+                            color: const Color(0xFFD70C4B),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          // child: Text(
-                          //   "best off",
-                          //   style: TextStyle(
-                          //       fontWeight: FontWeight.bold,
-                          //       fontSize: 50,
-                          //       color: Colors.black),
-                          // ),
                           width: 90,
                           height: 30,
                         ),
                       ),
                     ),
                     Positioned(
-                      left: 19,
-                      top: 0,
-                      bottom: 160,
+                      left: 20,
+                      top: 8,
+                      bottom: 145,
                       right: 100,
                       child: RotationTransition(
-                        turns: new AlwaysStoppedAnimation(315 / 360),
+                        turns:
+                        const AlwaysStoppedAnimation(322 / 360),
                         child: Container(
-                          child: Text(
-                            "best off",
+                          child: const Text(
+                            "Best off",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,

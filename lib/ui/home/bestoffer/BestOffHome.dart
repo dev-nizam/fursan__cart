@@ -85,7 +85,7 @@ class _BestOffHomeState extends State<BestOffHome> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (ctx) => const BestOffers()));
+                            builder: (ctx) =>  BestOffersfull(bestoffers: [ bestoffers ],)));
                   },
                   child: const Text(
                     "See all",
@@ -168,7 +168,7 @@ class _BestOffHomeState extends State<BestOffHome> {
                         width: 1,
                       );
                     },
-                    itemCount: bestoffers.length)),
+                    itemCount: bestoffers.length >6? 6:bestoffers.length)),
             SizedBox(
               height: mHeight * .02,
             ),

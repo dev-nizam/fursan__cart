@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fursan_cart/ui/home/AppBar/Cart.dart';
 import 'package:fursan_cart/ui/home/Brand/BrandHome.dart';
 import 'package:fursan_cart/ui/home/SearchBarhome/SearchBarhome.dart';
+import 'package:fursan_cart/ui/home/TrendingNow/TrendingHome.dart';
 import 'package:fursan_cart/ui/home/bestoffer/BestOffHome.dart';
 
 

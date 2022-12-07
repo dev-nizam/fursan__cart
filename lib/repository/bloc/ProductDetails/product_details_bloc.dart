@@ -18,11 +18,11 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
       emit(ProductDetailsLoading());
       try {
         productDetailsModel = await productDetailsApi.getProductDetails();
-        Tranding=productDetailsModel.where((element) => element.tags != null).toList();
-        non=productDetailsModel.where((element) => element.tags == null).toList();
+        Tranding=productDetailsModel.where((element) => element.tags == null).toList();
+        non=productDetailsModel.where((element) => element.tags != null).toList();
         emit(ProductDetailsLoaded());
       } catch (e) {
-        // print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");
+        print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");
         emit(ProductDetailsError());
       }
 

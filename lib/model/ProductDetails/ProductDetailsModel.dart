@@ -40,12 +40,12 @@ class ProductDetailsModel {
     status = json['status'];
     discountId = json['discountId'];
     rating = json['rating'];
-    if (json['tags'] != null) {
-      tags = [];
-      json['tags'].forEach((v) {
-        tags?.add(Dynamic.fromJson(v));
-      });
-    }
+    // if (json['tags'] != null) {
+    //   tags = [];
+    //   json['tags'].forEach((v) {
+    //     tags?.add(dynamic.fromJson(v));
+    //   });
+    // }
     if (json['discPerQtt'] != null) {
       discPerQtt = [];
       json['discPerQtt'].forEach((v) {
@@ -60,12 +60,12 @@ class ProductDetailsModel {
         images?.add(Images.fromJson(v));
       });
     }
-    if (json['orders'] != null) {
-      orders = [];
-      json['orders'].forEach((v) {
-        orders?.add(Dynamic.fromJson(v));
-      });
-    }
+    // if (json['orders'] != null) {
+    //   orders = [];
+    //   json['orders'].forEach((v) {
+    //     orders?.add(dynamic.fromJson(v));
+    //   });
+    // }
     shop = json['shop'] != null ? Shop.fromJson(json['shop']) : null;
     subCategory = json['subCategory'] != null ? SubCategory.fromJson(json['subCategory']) : null;
     dicountAmount = json['dicountAmount'];
@@ -93,7 +93,7 @@ class ProductDetailsModel {
   List<dynamic>? orders;
   Shop? shop;
   SubCategory? subCategory;
-  double? dicountAmount;
+  dynamic? dicountAmount;
   String? discPercent;
   static List<ProductDetailsModel> listFromJson(List<dynamic> json) {
     return json == null
