@@ -29,8 +29,8 @@ class _CartState extends State<Cart> {
       ),
       body: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (ctx) => ScreenProductDetails()));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (ctx) => ScreenProductDetails()));
         },
         child: Container(
           height: mHeight,

@@ -1,5 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
+import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
@@ -7,13 +11,19 @@ import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 import 'ScreenBuyNow.dart';
 
 class ScreenProductDetails extends StatefulWidget {
-  const ScreenProductDetails({Key? key}) : super(key: key);
+   ScreenProductDetails({Key? key, }) : super(key: key);
 
   @override
   State<ScreenProductDetails> createState() => _ScreenProductDetailsState();
 }
 
 class _ScreenProductDetailsState extends State<ScreenProductDetails> {
+
+  late List<ProductDetailsModel> productDetailsModel;
+  void initState() {
+    BlocProvider.of<ProductDetailsBloc>(context).add(FatchProductDetails());
+    super.initState();
+  }
   int Quantity = 1;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +31,24 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
     final mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
+      body: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
+  builder: (context, state) {
+      if (state is ProductDetailsLoading) {
+        print("ProductDetailsLoading");
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (state is ProductDetailsError) {
+        print("ProductDetailsError");
+        return const Center(
+          child: Text("Something went wrong"),
+        );
+      }
+      if (state is ProductDetailsLoaded) {
+        print("ProductDetailsLoaded");
+        productDetailsModel = BlocProvider.of<ProductDetailsBloc>(context).productDetailsModel;
+    return ListView(
         physics: BouncingScrollPhysics(),
         children: [
           Column(
@@ -351,7 +378,11 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
             ],
           )
         ],
-      ),
+      );
+      }
+      return Container();
+    },
+),
     );
   }
   List  Images=[

@@ -5,9 +5,9 @@ import 'package:fursan_cart/ui/home/bestoffer/ScreenOfferProducts.dart';
 import 'package:fursan_cart/ui/widgets/WidgetAppBar.dart';
 
 class BestOffersfull extends StatefulWidget {
-   BestOffersfull({Key? key, required this.bestoffers, }) : super(key: key);
+   BestOffersfull({Key? key, required this.bestoffers1, }) : super(key: key);
 
-   final List<BannerModel>bestoffers;
+   final List<BannerModel>bestoffers1;
   @override
   State<BestOffersfull> createState() => _BestOffersfullState();
 }
@@ -71,14 +71,14 @@ class _BestOffersfullState extends State<BestOffersfull> {
         ],
       ),
       body: Container(
-        margin: EdgeInsets.only(left: mWidth * .05, right: mWidth * .05),
+        margin: EdgeInsets.only(left: mWidth * .01, right: mWidth * .01),
         child: GestureDetector(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (ctx) => ScreenBestOffers()));
           },
           child: GridView.builder(
-              itemCount: 15,
+              itemCount: widget.bestoffers1.length,
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 300,
@@ -93,7 +93,7 @@ class _BestOffersfullState extends State<BestOffersfull> {
                       padding: const EdgeInsets.only(left: 17),
                       child: Container(
                         height: mHeight * .4,
-                        width: mWidth * .37,
+                        width: mWidth * .40,
                         decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius:
@@ -101,7 +101,7 @@ class _BestOffersfullState extends State<BestOffersfull> {
                             image: DecorationImage(
                                 image: NetworkImage(
                                     "http://192.168.1.9:3010/api" +
-                                        "/banner/images/" + bestoffers[index].banner![0].url.toString()),
+                                        "/banner/images/" + widget.bestoffers1[index].banner![0].url.toString()),
                                 fit: BoxFit.cover)),
                       ),
                     ),
@@ -124,10 +124,10 @@ class _BestOffersfullState extends State<BestOffersfull> {
                       ),
                     ),
                     Positioned(
-                      left: 20,
-                      top: 8,
-                      bottom: 145,
-                      right: 100,
+                      left: 25,
+                      top: 7,
+                      bottom: 185,
+                      right: 115,
                       child: RotationTransition(
                         turns:
                         const AlwaysStoppedAnimation(322 / 360),
@@ -172,7 +172,7 @@ class CustomPath extends CustomClipper<Path> {
     final path = new Path();
     path.lineTo(size.width - 40, 0);
     path.lineTo(size.width - 150, size.height / 2);
-    path.lineTo(size.width - 90, size.height);
+    path.lineTo(size.width - 95, size.height);
     path.lineTo(0, size.height);
     path.close();
     return path;

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/brand/BrandModel.dart';
-import 'package:fursan_cart/repository/bloc/brand/brand_bloc.dart';
+import 'package:fursan_cart/repository/bloc/brandMain/brand/brand_bloc.dart';
 import 'package:fursan_cart/ui/home/Brand/ScreenBrand.dart';
 
 
@@ -94,7 +94,7 @@ class _BrandHomeState extends State<BrandHome> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (ctx) => const ScreenBrand()));
+                                          builder: (ctx) =>  ScreenBrand(brandModel: brandModel,)));
                                 },
                                 child: Container(
                                   height: mHeight * .06,

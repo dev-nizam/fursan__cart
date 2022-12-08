@@ -1,23 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/model/brand/BrandModel.dart';
+import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
+import 'package:fursan_cart/repository/bloc/brandMain/brand/brand_bloc.dart';
+import 'package:fursan_cart/repository/bloc/brandMain/brandid/brandid_bloc.dart';
 
 import '../AppBar/Cart.dart';
 import '../AppBar/Screenfavourites.dart';
 
 class ScreenBrand extends StatefulWidget {
-  const ScreenBrand({Key? key}) : super(key: key);
-
+   ScreenBrand({Key? key, required this.brandModel, }) : super(key: key);
+final List<BrandModel> brandModel;
   @override
   State<ScreenBrand> createState() => _ScreenBrandState();
 }
 
 class _ScreenBrandState extends State<ScreenBrand> {
+  void initState() {
+  BlocProvider.of<BrandidBloc>(context).add(FatchBrandId());
+  super.initState();
+}
+
+late List<ProductDetailsModel> productDetailsModel;
   bool search = true;
 
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
+    return BlocBuilder<BrandidBloc, BrandidState>(
+  builder: (context, state) {
+      if (state is BrandIdLoading) {
+        print(" brand ui State.. loading.......");
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (state is BrandIdError) {
+        print(" brand ui loaded..error...");
+        return RefreshIndicator(
+          onRefresh: () async {
+            return BlocProvider.of<BrandBloc>(context)
+                .add(FatchBrand());
+          },
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Container(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * .9,
+              // color: Colors.red,
+              child: Center(
+                child: Text("something went wrong"),
+              ),
+            ),
+          ),
+        );
+      }
+
+
+      if (state is BrandIdLoaded) {
+        print(" brand ui state loaded.......");
+        // notificationModelClass = BlocProvider.of<NotificationBloc>(context)
+        //     .notificationModelClass;
+        productDetailsModel=
+            BlocProvider.of<BrandidBloc>(context).productDetailsModel;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -33,7 +83,7 @@ class _ScreenBrandState extends State<ScreenBrand> {
         ),
         title: search
             ? Text(
-                "LG Products",
+            widget.brandModel[0].name.toString(),
                 style: TextStyle(color: Colors.black),
               )
             : Container(
@@ -175,5 +225,12 @@ class _ScreenBrandState extends State<ScreenBrand> {
         ],
       ),
     );
+      }
+
+      return Center(
+        child: Text("no response"),
+      );
+    }
+);
   }
 }

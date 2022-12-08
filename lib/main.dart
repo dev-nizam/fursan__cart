@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/repository/api/authentication/login.dart';
 import 'package:fursan_cart/repository/api/authentication/signup.dart';
+import 'package:fursan_cart/repository/api/brand/brandIdApi.dart';
+import 'package:fursan_cart/repository/api/search%20api/SearchApi.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
+import 'package:fursan_cart/repository/bloc/brandMain/brandid/brandid_bloc.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/widgets/splash/splash.dart';
@@ -15,7 +18,8 @@ import 'repository/api/authentication/firbase/googel.dart';
 import 'repository/api/banner/bannerApi.dart';
 import 'repository/api/brand/brandApi.dart';
 import 'repository/bloc/ProductDetails/product_details_bloc.dart';
-import 'repository/bloc/brand/brand_bloc.dart';
+import 'repository/bloc/brandMain/brand/brand_bloc.dart';
+import 'repository/bloc/search/search_bloc.dart';
 import 'repository/bloc/user/signup/signup_bloc.dart';
 
 void main() async {
@@ -31,6 +35,9 @@ void main() async {
   ApiSignUp apiSignUp=ApiSignUp();
   ApiBanner apiBanner=ApiBanner();
   ApiBrand apiBrandr=ApiBrand();
+  ApiBrandId apiBrandId=ApiBrandId();
+  SearchApi searchApi=SearchApi();
+
   ProductDetailsApi productDetailsApi=ProductDetailsApi();
   runApp(MultiBlocProvider(
       providers: [
@@ -39,6 +46,8 @@ void main() async {
         BlocProvider(create: (context) => BannerBloc(apiBanner)),
         BlocProvider(create: (context) => BrandBloc(apiBrandr)),
         BlocProvider(create: (context) => ProductDetailsBloc(productDetailsApi)),
+        BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
+        BlocProvider(create: (context) => SearchBloc(searchApi)),
 
       ],
       child: MyApp()));

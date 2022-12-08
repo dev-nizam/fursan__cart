@@ -100,33 +100,50 @@ class _BannerHomeState extends State<BannerHome> {
                         enlargeCenterPage: true,
                         scrollDirection: Axis.horizontal,
                       ),
-                      itemCount: bannerimg.length,
+                      itemCount:  bannerimg.length ,
                       itemBuilder:
                           (BuildContext context, int index,
                           int pageViewIndex) =>
                           // bannerimg[index].banner == null ?
-                          Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height * .29,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * .90,
-                            decoration: BoxDecoration(
-                                color: Colors.amber,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                      "http://192.168.1.9:3010/api" +
-                                          "/banner/images/" +
-                                         bannerimg[index].banner!
+                          // Container(
+                          //   height: MediaQuery
+                          //       .of(context)
+                          //       .size
+                          //       .height * .29,
+                          //   width: MediaQuery
+                          //       .of(context)
+                          //       .size
+                          //       .width * .90,
+                          //   decoration: BoxDecoration(
+                          //       color: Colors.amber,
+                          //       image: DecorationImage(
+                          //           image: AssetImage(
+                          //               "neon-style-coming-soon-glowing-background-design_1017-25516.webp" ),
+                          //           fit: BoxFit.fill),
+                          //       borderRadius: BorderRadius.circular(10)),
+                          // )
+                          //   :
+                         Container(
+                        height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * .29,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .90,
+                    decoration: BoxDecoration(
+                        color: Colors.amber,
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                "http://192.168.1.9:3010/api" +
+                                    "/banner/images/" +
+                                    bannerimg[index].banner!
                                         .first
                                         .url
                                         .toString()),
-                                    fit: BoxFit.fill),
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
+                            fit: BoxFit.fill),
+                        borderRadius: BorderRadius.circular(10)),)
                     ),
                   ),
                 ],

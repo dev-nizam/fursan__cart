@@ -85,7 +85,7 @@ class _BestOffHomeState extends State<BestOffHome> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (ctx) =>  BestOffersfull(bestoffers: [ bestoffers ],)));
+                            builder: (ctx) =>  BestOffersfull(bestoffers1:bestoffers)));
                   },
                   child: const Text(
                     "See all",
@@ -201,4 +201,5 @@ class CustomPath extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return true;
   }
+
 }
