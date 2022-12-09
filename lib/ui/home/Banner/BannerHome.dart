@@ -38,7 +38,7 @@ class _BannerHomeState extends State<BannerHome> {
         builder: (context, state) {
           if (state is BannerLoading) {
             print("State.........");
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -50,14 +50,14 @@ class _BannerHomeState extends State<BannerHome> {
                     .add(FetchBanner());
               },
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Container(
                   height: MediaQuery
                       .of(context)
                       .size
                       .height * .9,
                   // color: Colors.red,
-                  child: Center(
+                  child: const Center(
                     child: Text("something went wrong"),
                   ),
                 ),
@@ -79,7 +79,7 @@ class _BannerHomeState extends State<BannerHome> {
                   SizedBox(
                     height: mHeight * .02,
                   ),
-                  Container(
+                  bannerimg.isNotEmpty ? Container(
                     height: mHeight * .2,
                     width: mWidth * .91,
                     decoration: BoxDecoration(
@@ -104,25 +104,7 @@ class _BannerHomeState extends State<BannerHome> {
                       itemBuilder:
                           (BuildContext context, int index,
                           int pageViewIndex) =>
-                          // bannerimg[index].banner == null ?
-                          // Container(
-                          //   height: MediaQuery
-                          //       .of(context)
-                          //       .size
-                          //       .height * .29,
-                          //   width: MediaQuery
-                          //       .of(context)
-                          //       .size
-                          //       .width * .90,
-                          //   decoration: BoxDecoration(
-                          //       color: Colors.amber,
-                          //       image: DecorationImage(
-                          //           image: AssetImage(
-                          //               "neon-style-coming-soon-glowing-background-design_1017-25516.webp" ),
-                          //           fit: BoxFit.fill),
-                          //       borderRadius: BorderRadius.circular(10)),
-                          // )
-                          //   :
+
                          Container(
                         height: MediaQuery
                         .of(context)
@@ -145,7 +127,7 @@ class _BannerHomeState extends State<BannerHome> {
                             fit: BoxFit.fill),
                         borderRadius: BorderRadius.circular(10)),)
                     ),
-                  ),
+                  ):Container(),
                 ],
               ),
             );
