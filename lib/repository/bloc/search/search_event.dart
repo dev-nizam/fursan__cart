@@ -4,7 +4,7 @@ part of 'search_bloc.dart';
 abstract class SearchEvent {}
 
 class FetchSearch extends SearchEvent {
-  final String products;
+  final String Id;
 
-  FetchSearch(this.products);
+  FetchSearch(this.Id);
 }

@@ -16,10 +16,10 @@ class SearchPageHome extends StatefulWidget {
 class _SearchPageHomeState extends State<SearchPageHome> {
   TextEditingController ProductController = TextEditingController();
 
-  // void initState() {
-  //   BlocProvider.of<SearchBloc>(context).add(FetchSearch("Iphone"));
-  //   super.initState();
-  // }
+  void initState() {
+    BlocProvider.of<SearchBloc>(context).add(FetchSearch("Iphone"));
+    super.initState();
+  }
 
   late List<SearchModel> searchModel;
   @override
@@ -86,7 +86,7 @@ class _SearchPageHomeState extends State<SearchPageHome> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => ScreenProductDetails(
+                                  builder: (ctx) => ScreenProductDetails(Id:searchModel[index].id![0].toString() ,
                                       )));
                             },
                             child: Card(

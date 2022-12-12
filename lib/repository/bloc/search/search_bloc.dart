@@ -15,7 +15,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<FetchSearch>((event, emit) async {
       emit(SearchLoading());
       try {
-        searchModel = await searchApi.getSearch(event.products);
+        searchModel = await searchApi.getSearch(event.Id);
         emit(SearchLoaded());
       } catch (e) {
         emit(SearchError());

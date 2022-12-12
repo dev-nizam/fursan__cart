@@ -11,8 +11,8 @@ import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 import 'ScreenBuyNow.dart';
 
 class ScreenProductDetails extends StatefulWidget {
-   ScreenProductDetails({Key? key, }) : super(key: key);
-
+   ScreenProductDetails({Key? key, required this.Id, }) : super(key: key);
+final String Id;
   @override
   State<ScreenProductDetails> createState() => _ScreenProductDetailsState();
 }
