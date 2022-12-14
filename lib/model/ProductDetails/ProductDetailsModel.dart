@@ -1,29 +1,32 @@
+import 'package:flutter/src/widgets/container.dart';
+
 class ProductDetailsModel {
   ProductDetailsModel({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.name, 
-      this.price, 
-      this.description, 
-      this.stock, 
-      this.unit, 
-      this.subId, 
-      this.shopId, 
-      this.brandsId, 
-      this.status, 
-      this.discountId, 
-      this.rating, 
-      this.tags, 
-      this.discPerQtt, 
-      this.brand, 
-      this.discount, 
-      this.images, 
-      this.orders, 
-      this.shop, 
-      this.subCategory, 
-      this.dicountAmount, 
-      this.discPercent,});
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.name,
+    this.price,
+    this.description,
+    this.stock,
+    this.unit,
+    this.subId,
+    this.shopId,
+    this.brandsId,
+    this.status,
+    this.discountId,
+    this.rating,
+    this.tags,
+    this.discPerQtt,
+    this.brand,
+    this.discount,
+    this.images,
+    this.orders,
+    this.shop,
+    this.subCategory,
+    this.dicountAmount,
+    this.discPercent,
+  });
 
   ProductDetailsModel.fromJson(dynamic json) {
     id = json['id'];
@@ -40,12 +43,7 @@ class ProductDetailsModel {
     status = json['status'];
     discountId = json['discountId'];
     rating = json['rating'];
-    // if (json['tags'] != null) {
-    //   tags = [];
-    //   json['tags'].forEach((v) {
-    //     tags?.add(dynamic.fromJson(v));
-    //   });
-    // }
+
     if (json['discPerQtt'] != null) {
       discPerQtt = [];
       json['discPerQtt'].forEach((v) {
@@ -53,21 +51,19 @@ class ProductDetailsModel {
       });
     }
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
-    discount = json['discount'] != null ? Discount.fromJson(json['discount']) : null;
+    discount =
+        json['discount'] != null ? Discount.fromJson(json['discount']) : null;
     if (json['images'] != null) {
       images = [];
       json['images'].forEach((v) {
         images?.add(Images.fromJson(v));
       });
     }
-    // if (json['orders'] != null) {
-    //   orders = [];
-    //   json['orders'].forEach((v) {
-    //     orders?.add(dynamic.fromJson(v));
-    //   });
-    // }
+
     shop = json['shop'] != null ? Shop.fromJson(json['shop']) : null;
-    subCategory = json['subCategory'] != null ? SubCategory.fromJson(json['subCategory']) : null;
+    subCategory = json['subCategory'] != null
+        ? SubCategory.fromJson(json['subCategory'])
+        : null;
     dicountAmount = json['dicountAmount'];
     discPercent = json['discPercent'];
   }
@@ -77,14 +73,14 @@ class ProductDetailsModel {
   String? name;
   String? price;
   String? description;
-  int? stock;
+  dynamic? stock;
   String? unit;
   String? subId;
   String? shopId;
   String? brandsId;
   String? status;
   String? discountId;
-  int? rating;
+  dynamic? rating;
   List<dynamic>? tags;
   List<DiscPerQtt>? discPerQtt;
   Brand? brand;
@@ -95,11 +91,13 @@ class ProductDetailsModel {
   SubCategory? subCategory;
   dynamic? dicountAmount;
   String? discPercent;
+
   static List<ProductDetailsModel> listFromJson(List<dynamic> json) {
     return json == null
         ? []
         : json.map((value) => ProductDetailsModel.fromJson(value)).toList();
   }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -144,25 +142,26 @@ class ProductDetailsModel {
     map['discPercent'] = discPercent;
     return map;
   }
-
 }
 
 class SubCategory {
   SubCategory({
-      this.id, 
-      this.name, 
-      this.image, 
-      this.category,});
+    this.id,
+    this.name,
+    this.image,
+    this.category,
+  });
 
   SubCategory.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
-    category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    image = json['image'] != null ? Imagee.fromJson(json['image']) : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
   }
   String? id;
   String? name;
-  Image? image;
+  Imagee? image;
   Category? category;
 
   Map<String, dynamic> toJson() {
@@ -177,23 +176,23 @@ class SubCategory {
     }
     return map;
   }
-
 }
 
 class Category {
   Category({
-      this.id, 
-      this.name, 
-      this.image,});
+    this.id,
+    this.name,
+    this.image,
+  });
 
   Category.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? Imagee.fromJson(json['image']) : null;
   }
   String? id;
   String? name;
-  Image? image;
+  Imagee? image;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -204,29 +203,12 @@ class Category {
     }
     return map;
   }
-
-}
-
-class Image {
-  Image({
-      this.url,});
-
-  Image.fromJson(dynamic json) {
-    url = json['url'];
-  }
-  String? url;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['url'] = url;
-    return map;
-  }
-
 }
 
 class Imagee {
   Imagee({
-      this.url,});
+    this.url,
+  });
 
   Imagee.fromJson(dynamic json) {
     url = json['url'];
@@ -238,13 +220,27 @@ class Imagee {
     map['url'] = url;
     return map;
   }
+}
 
+class Image12 {
+  Image12({
+    this.url,
+  });
+
+  String? url;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['url'] = url;
+    return map;
+  }
 }
 
 class Shop {
   Shop({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Shop.fromJson(dynamic json) {
     id = json['id'];
@@ -259,12 +255,12 @@ class Shop {
     map['name'] = name;
     return map;
   }
-
 }
 
 class Images {
   Images({
-      this.url,});
+    this.url,
+  });
 
   Images.fromJson(dynamic json) {
     url = json['url'];
@@ -277,17 +273,19 @@ class Images {
     return map;
   }
 
+  map(Container Function(dynamic images) param0) {}
 }
 
 class Discount {
   Discount({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.name, 
-      this.desc, 
-      this.discountPercent, 
-      this.active,});
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.name,
+    this.desc,
+    this.discountPercent,
+    this.active,
+  });
 
   Discount.fromJson(dynamic json) {
     id = json['id'];
@@ -317,15 +315,15 @@ class Discount {
     map['active'] = active;
     return map;
   }
-
 }
 
 class Brand {
   Brand({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.name,});
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.name,
+  });
 
   Brand.fromJson(dynamic json) {
     id = json['id'];
@@ -346,19 +344,19 @@ class Brand {
     map['name'] = name;
     return map;
   }
-
 }
 
 class DiscPerQtt {
   DiscPerQtt({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.qttFrom, 
-      this.qttTo, 
-      this.discPercent, 
-      this.discFlatAmnt, 
-      this.productsId,});
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.qttFrom,
+    this.qttTo,
+    this.discPercent,
+    this.discFlatAmnt,
+    this.productsId,
+  });
 
   DiscPerQtt.fromJson(dynamic json) {
     id = json['id'];
@@ -373,8 +371,8 @@ class DiscPerQtt {
   String? id;
   String? createdAt;
   String? updatedAt;
-  int? qttFrom;
-  int? qttTo;
+  dynamic? qttFrom;
+  dynamic? qttTo;
   String? discPercent;
   String? discFlatAmnt;
   String? productsId;
@@ -391,5 +389,4 @@ class DiscPerQtt {
     map['productsId'] = productsId;
     return map;
   }
-
 }

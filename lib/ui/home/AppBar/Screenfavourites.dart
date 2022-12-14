@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/ui/widgets/ProductView.dart';
+import 'package:fursan_cart/ui/widgets/favourites/favouritesView.dart';
 
 import 'Cart.dart';
 
@@ -12,6 +14,8 @@ class ScreenFavourites extends StatefulWidget {
 }
 
 class _ScreenFavouritesState extends State<ScreenFavourites> {
+  late List<ProductDetailsModel> productDetailsModel;
+  // late List<ProductDetailsModel>  Tranding;
   bool search = true;
   @override
   Widget build(BuildContext context) {
@@ -71,6 +75,6 @@ class _ScreenFavouritesState extends State<ScreenFavourites> {
             ),
           ],
         ),
-        body: ProductView());
+        body: FavouritesView());
   }
 }

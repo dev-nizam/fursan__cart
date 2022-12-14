@@ -1,13 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/ui/widgets/ProductView.dart';
 
 import '../AppBar/Cart.dart';
 import '../AppBar/Screenfavourites.dart';
 
 class Trending extends StatefulWidget {
-  const Trending({Key? key}) : super(key: key);
-
+   Trending({Key? key, required this.productDetailsModel, }) : super(key: key);
+  final List <ProductDetailsModel> productDetailsModel;
   @override
   State<Trending> createState() => _TrendingState();
 }
@@ -89,7 +90,7 @@ class _TrendingState extends State<Trending> {
           ),
         ],
       ),
-      body: ProductView(),
+      body: ProductView(productDetailsModel: widget.productDetailsModel,),
     );
   }
 }

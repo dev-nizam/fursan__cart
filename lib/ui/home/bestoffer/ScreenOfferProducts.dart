@@ -1,12 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/model/banner/BannerModel.dart';
 import 'package:fursan_cart/ui/home/AppBar/Cart.dart';
 import 'package:fursan_cart/ui/home/AppBar/Screenfavourites.dart';
+import 'package:fursan_cart/ui/home/bestoffer/bestoffersProductView.dart';
 import 'package:fursan_cart/ui/widgets/ProductView.dart';
 
 class ScreenBestOffers extends StatefulWidget {
-  const ScreenBestOffers({Key? key}) : super(key: key);
-
+   ScreenBestOffers({Key? key, required this.bestoffers1}) : super(key: key);
+  final List<BannerModel>bestoffers1;
   @override
   State<ScreenBestOffers> createState() => _ScreenBestOffersState();
 }
@@ -14,6 +17,8 @@ class ScreenBestOffers extends StatefulWidget {
 bool search = false;
 
 class _ScreenBestOffersState extends State<ScreenBestOffers> {
+  late List<ProductDetailsModel> productDetailsModel;
+  late List<ProductDetailsModel>  Tranding;
   bool search = true;
   @override
   Widget build(BuildContext context) {
@@ -87,7 +92,7 @@ class _ScreenBestOffersState extends State<ScreenBestOffers> {
           ),
         ],
       ),
-      body: ProductView(),
+      body:BestOffersProductView(bestoffers1: widget.bestoffers1,)
     );
   }
 }

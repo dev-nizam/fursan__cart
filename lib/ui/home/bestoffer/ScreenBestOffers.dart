@@ -75,7 +75,7 @@ class _BestOffersfullState extends State<BestOffersfull> {
         child: GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (ctx) => ScreenBestOffers()));
+                MaterialPageRoute(builder: (ctx) => ScreenBestOffers(bestoffers1:widget.bestoffers1,)));
           },
           child: GridView.builder(
               itemCount: widget.bestoffers1.length,

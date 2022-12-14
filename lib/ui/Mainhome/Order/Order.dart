@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 
@@ -11,6 +12,8 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
+  late List<ProductDetailsModel> productDetailsModel;
+  late List<ProductDetailsModel>  Tranding;
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
@@ -78,7 +81,8 @@ class _OrderState extends State<Order> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ScreenProductDetails()));
+                                builder: (context) => ScreenProductDetails( ProductDetailsModel: ProductDetailsModel(),)
+                            ));
                       },
                       icon: Icon(Icons.arrow_forward_ios))
                 ],

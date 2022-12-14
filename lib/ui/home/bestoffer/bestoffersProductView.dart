@@ -1,15 +1,16 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/model/banner/BannerModel.dart';
 
-class ProductView extends StatefulWidget {
-   ProductView({Key? key,   required this.productDetailsModel, }) : super(key: key);
-    List <ProductDetailsModel> productDetailsModel;
+class BestOffersProductView extends StatefulWidget {
+  BestOffersProductView({Key? key, required this.bestoffers1,  }) : super(key: key);
+  final List<BannerModel>bestoffers1;
   @override
-  State<ProductView> createState() => _ProductViewState();
+  State<BestOffersProductView> createState() => _BestOffersProductViewState();
 }
 
-class _ProductViewState extends State<ProductView> {
+class _BestOffersProductViewState extends State<BestOffersProductView> {
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,9 @@ class _ProductViewState extends State<ProductView> {
                         image: DecorationImage(
                             image: NetworkImage("http://192.168.1.9:3010/api" +
                                 "/product/images/" +
-                                widget.productDetailsModel[index]
-                                    .images![0].url.toString()))),
+                                widget.bestoffers1[index].subCategory.id.
+                            )
+                        )),
                   ),
                   Container(
                     height: mHeight * .1,
@@ -48,11 +50,11 @@ class _ProductViewState extends State<ProductView> {
                         SizedBox(
                           height: mHeight * .02,
                         ),
-                        Text(
-                            widget.productDetailsModel[index]
-                                .name!
-                                .toString(),maxLines: 1,
-                          style: TextStyle(fontSize: 14),
+                        Text(""
+                          // widget.productDetailsModel[index]
+                          //     .name!
+                          //     .toString(),maxLines: 1,
+                          // style: TextStyle(fontSize: 14),
                         ),
                         RatingBar.builder(
                           itemSize: 20,
@@ -77,12 +79,12 @@ class _ProductViewState extends State<ProductView> {
                               color: Colors.grey,
                               size: 14,
                             ),
-                            Text(
-                              widget.productDetailsModel[index]
-                                  .price!
-                                  .toString(),maxLines: 2,
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 14),
+                            Text(""
+                              // widget.productDetailsModel[index]
+                              //     .price!
+                              //     .toString(),maxLines: 2,
+                              // style:
+                              // TextStyle(color: Colors.grey, fontSize: 14),
                             )
                           ],
                         ),
@@ -100,7 +102,7 @@ class _ProductViewState extends State<ProductView> {
             thickness: 1,
           );
         },
-        itemCount:  widget.productDetailsModel.length);
+        itemCount: Price.length);
   }
 
   List Images = [

@@ -10,16 +10,16 @@ part 'product_details_state.dart';
 
 class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> {
   late List<ProductDetailsModel> productDetailsModel;
-  late List<ProductDetailsModel>  Tranding;
-  late List<ProductDetailsModel> non ;
+  // late List<ProductDetailsModel>  Tranding;
+  // late List<ProductDetailsModel> non ;
   ProductDetailsApi productDetailsApi;
   ProductDetailsBloc(this.productDetailsApi) : super(ProductDetailsInitial()) {
     on<FatchProductDetails>((event, emit) async {
       emit(ProductDetailsLoading());
       try {
         productDetailsModel = await productDetailsApi.getProductDetails();
-        Tranding=productDetailsModel.where((element) => element.tags == null).toList();
-        non=productDetailsModel.where((element) => element.tags != null).toList();
+        // Tranding=productDetailsModel.where((element) => element.tags == null).toList();
+        // non=productDetailsModel.where((element) => element.tags != null).toList();
         emit(ProductDetailsLoaded());
       } catch (e) {
         print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");

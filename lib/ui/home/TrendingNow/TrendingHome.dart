@@ -7,7 +7,7 @@ import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 import 'package:fursan_cart/ui/home/TrendingNow/ScreenTrending.dart';
 
 class TrendingHome extends StatefulWidget {
-  const TrendingHome({Key? key}) : super(key: key);
+   TrendingHome({Key? key, }) : super(key: key);
 
   @override
   State<TrendingHome> createState() => _TrendingHomeState();
@@ -20,8 +20,7 @@ class _TrendingHomeState extends State<TrendingHome> {
   }
 
   late List<ProductDetailsModel> productDetailsModel;
-  late List<ProductDetailsModel>  Tranding;
-
+  // late List<ProductDetailsModel>  Tranding;
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
@@ -42,7 +41,7 @@ class _TrendingHomeState extends State<TrendingHome> {
         }
         if (state is ProductDetailsLoaded) {
           print("ProductDetailsLoaded");
-          Tranding = BlocProvider.of<ProductDetailsBloc>(context).Tranding;
+          productDetailsModel = BlocProvider.of<ProductDetailsBloc>(context).productDetailsModel;
           return Container(
             child: Column(
               children: [
@@ -67,7 +66,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (ctx) => const Trending()));
+                                builder: (ctx) =>  Trending(productDetailsModel: productDetailsModel, )));
                       },
                       child: const Text(
                         "See all",
@@ -81,20 +80,20 @@ class _TrendingHomeState extends State<TrendingHome> {
                 SizedBox(
                   height: mHeight * .015,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (ctx) =>  ScreenProductDetails()));
-                  },
-                  child: Container(
-                      height: mHeight * .21,
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (ctx, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 17),
+                Container(
+                    height: mHeight * .21,
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (ctx, Index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 17),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) =>  ScreenProductDetails(ProductDetailsModel: ProductDetailsModel)));
+                              },
                               child: Container(
                                 height: mHeight * .06,
                                 width: mWidth * .37,
@@ -114,7 +113,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                               image: NetworkImage(
                                                   "http://192.168.1.9:3010/api" +
                                                       "/product/images/" +
-                                                      Tranding[index]
+                                                      productDetailsModel[Index]
                                                           .images![0].url.toString()),
                                               fit: BoxFit.fill)),
                                     ),
@@ -131,9 +130,9 @@ class _TrendingHomeState extends State<TrendingHome> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            Tranding[index]
-                                                .name!
-                                                .toString(),
+                                            productDetailsModel[Index]
+                                                .name
+                                                .toString(),maxLines: 2,
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w500),
                                           ),
@@ -153,8 +152,8 @@ class _TrendingHomeState extends State<TrendingHome> {
                                                 width: mWidth * .01,
                                               ),
                                               Text(
-                                                Tranding[index]
-                                                    .dicountAmount!
+                                                productDetailsModel[Index]
+                                                    .dicountAmount
                                                     .toString(),
                                                 style: TextStyle(
                                                     decoration: TextDecoration
@@ -162,7 +161,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                                     color: Colors.redAccent),
                                               ),
                                               Text(
-                                                Tranding[index]
+                                                productDetailsModel[Index]
                                                     .price
                                                     .toString(),
                                                 style: TextStyle(
@@ -176,15 +175,15 @@ class _TrendingHomeState extends State<TrendingHome> {
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                          separatorBuilder: (ctx, index) {
-                            return const SizedBox(
-                              width: 1,
-                            );
-                          },
-                          itemCount: Tranding.length >6? 6:Tranding.length)),
-                ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (ctx, index) {
+                          return const SizedBox(
+                            width: 1,
+                          );
+                        },
+                        itemCount: productDetailsModel.length >6? 6:productDetailsModel.length)),
               ],
             ),
           );

@@ -73,8 +73,7 @@ class _BannerHomeState extends State<BannerHome> {
 
 
             return
-              Container(
-              child: Column(
+              Column(
                 children: [
                   SizedBox(
                     height: mHeight * .02,
@@ -129,8 +128,7 @@ class _BannerHomeState extends State<BannerHome> {
                     ),
                   ):Container(),
                 ],
-              ),
-            );
+              );
           }
           return Center(
             child: Text("no response"),

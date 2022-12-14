@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
-import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
+
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
@@ -11,19 +13,14 @@ import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 import 'ScreenBuyNow.dart';
 
 class ScreenProductDetails extends StatefulWidget {
-   ScreenProductDetails({Key? key, required this.Id, }) : super(key: key);
-final String Id;
+   ScreenProductDetails({Key? key,required this.ProductDetailsModel}) : super(key: key);
+ final ProductDetailsModel;
   @override
   State<ScreenProductDetails> createState() => _ScreenProductDetailsState();
 }
 
 class _ScreenProductDetailsState extends State<ScreenProductDetails> {
 
-  late List<ProductDetailsModel> productDetailsModel;
-  void initState() {
-    BlocProvider.of<ProductDetailsBloc>(context).add(FatchProductDetails());
-    super.initState();
-  }
   int Quantity = 1;
   @override
   Widget build(BuildContext context) {
@@ -31,24 +28,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
     final mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
-  builder: (context, state) {
-      if (state is ProductDetailsLoading) {
-        print("ProductDetailsLoading");
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      if (state is ProductDetailsError) {
-        print("ProductDetailsError");
-        return const Center(
-          child: Text("Something went wrong"),
-        );
-      }
-      if (state is ProductDetailsLoaded) {
-        print("ProductDetailsLoaded");
-        productDetailsModel = BlocProvider.of<ProductDetailsBloc>(context).productDetailsModel;
-    return ListView(
+      body:ListView(
         physics: BouncingScrollPhysics(),
         children: [
           Column(
@@ -58,8 +38,8 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(
-                            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.shopclues.com%2Fimages%2Fdetailed%2F79356%2F134614939-79356631-1519117435.jpg&f=1&nofb=1&ipt=85a16544077f3f929d51afed7ec595a5379c0079f69ba7e4ac701e5755c47e01&ipo=images"),
+                        image: NetworkImage(widget.ProductDetailsModel.images[0].toString()
+                          ),
                         fit: BoxFit.contain)),
               ),
               SizedBox(
@@ -378,12 +358,8 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
             ],
           )
         ],
-      );
-      }
-      return Container();
-    },
-),
-    );
+      ));
+
   }
   List  Images=[
     "https://rukminim1.flixcart.com/image/416/416/xif0q/air-conditioner-new/e/l/b/-original-imaggf36gs6p98gf.jpeg?q=70",
