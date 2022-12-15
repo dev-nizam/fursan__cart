@@ -5,3 +5,6 @@ abstract class ProductDetailsEvent {}
 class FatchProductDetails extends ProductDetailsEvent{
 
 }
+class FatchBestoffersProduct extends ProductDetailsEvent{
+
+}

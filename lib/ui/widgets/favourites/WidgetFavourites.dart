@@ -33,8 +33,8 @@ class _WidgetFavouritesState extends State<WidgetFavourites> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => ScreenProductDetails(ProductDetailsModel:productDetailsModel[index],)));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (ctx) => ScreenProductDetails(ProductDetailsModel:productDetailsModel[index],)));
                   },
                   child: Container(
                     height: mHeight * .17,

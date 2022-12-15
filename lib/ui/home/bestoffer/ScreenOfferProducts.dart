@@ -8,7 +8,8 @@ import 'package:fursan_cart/ui/home/bestoffer/bestoffersProductView.dart';
 import 'package:fursan_cart/ui/widgets/ProductView.dart';
 
 class ScreenBestOffers extends StatefulWidget {
-   ScreenBestOffers({Key? key, required this.bestoffers1}) : super(key: key);
+   ScreenBestOffers({Key? key, required this.bestoffers1, }) : super(key: key);
+
   final List<BannerModel>bestoffers1;
   @override
   State<ScreenBestOffers> createState() => _ScreenBestOffersState();
@@ -39,7 +40,7 @@ class _ScreenBestOffersState extends State<ScreenBestOffers> {
         ),
         title: search
             ? Text(
-                "LG Washing Machine",
+                widget.bestoffers1![0].tag!.name.toString(),
                 style: TextStyle(color: Colors.black),
               )
             : Container(
@@ -92,7 +93,7 @@ class _ScreenBestOffersState extends State<ScreenBestOffers> {
           ),
         ],
       ),
-      body:BestOffersProductView(bestoffers1: widget.bestoffers1,)
+      body:BestOffersProductView()
     );
   }
 }

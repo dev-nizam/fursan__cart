@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/banner/BannerModel.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenBestOffers.dart';
+import 'package:fursan_cart/ui/home/bestoffer/ScreenOfferProducts.dart';
+import 'package:fursan_cart/ui/home/bestoffer/bestoffersProductView.dart';
 
 class BestOffHome extends StatefulWidget {
   const BestOffHome({Key? key}) : super(key: key);
@@ -99,76 +101,82 @@ class _BestOffHomeState extends State<BestOffHome> {
             SizedBox(
               height: mHeight * .015,
             ),
-            Container(
-                height: mHeight * .21,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (ctx, index) {
+            GestureDetector(
+              onTap: (){
+    Navigator.push(
+    context, MaterialPageRoute(builder: (ctx) => ScreenBestOffers(bestoffers1: bestoffers)));
+              },
+              child: Container(
+                  height: mHeight * .21,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (ctx, index) {
 
-                      return Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 17),
-                            child: Container(
-                              height: mHeight * .4,
-                              width: mWidth * .37,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius:
-                                  BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "http://192.168.1.9:3010/api" +
-                                              "/banner/images/" + bestoffers[index].banner![0].url.toString()),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ),
-                          Positioned(
-                            left: 17,
-                            top: 0,
-                            bottom: 10,
-                            child: ClipPath(
-                              clipper: CustomPath(),
+                        return Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 17),
                               child: Container(
-                                alignment: Alignment.center,
+                                height: mHeight * .4,
+                                width: mWidth * .37,
                                 decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: const Color(0xFFD70C4B),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                width: 90,
-                                height: 30,
+                                    color: Colors.grey,
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "http://192.168.1.9:3010/api" +
+                                                "/banner/images/" + bestoffers[index].banner![0].url.toString()),
+                                        fit: BoxFit.cover)),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            left: 20,
-                            top: 8,
-                            bottom: 145,
-                            right: 100,
-                            child: RotationTransition(
-                              turns:
-                              const AlwaysStoppedAnimation(322 / 360),
-                              child: Container(
-                                child: const Text(
-                                  "Best off",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                      color: Colors.white),
+                            Positioned(
+                              left: 17,
+                              top: 0,
+                              bottom: 10,
+                              child: ClipPath(
+                                clipper: CustomPath(),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: const Color(0xFFD70C4B),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  width: 90,
+                                  height: 30,
                                 ),
                               ),
                             ),
-                          )
-                        ],
-                      );
-                    },
-                    separatorBuilder: (ctx, index) {
-                      return const SizedBox(
-                        width: 1,
-                      );
-                    },
-                    itemCount: bestoffers.length >6? 6:bestoffers.length)),
+                            Positioned(
+                              left: 20,
+                              top: 8,
+                              bottom: 145,
+                              right: 100,
+                              child: RotationTransition(
+                                turns:
+                                const AlwaysStoppedAnimation(322 / 360),
+                                child: Container(
+                                  child: const Text(
+                                    "Best off",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      separatorBuilder: (ctx, index) {
+                        return const SizedBox(
+                          width: 1,
+                        );
+                      },
+                      itemCount: bestoffers.length >6? 6:bestoffers.length)),
+            ),
             SizedBox(
               height: mHeight * .02,
             ),

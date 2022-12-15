@@ -84,7 +84,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                     height: mHeight * .21,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (ctx, Index) {
+                        itemBuilder: (ctx, index) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 17),
                             child: GestureDetector(
@@ -92,7 +92,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (ctx) =>  ScreenProductDetails(ProductDetailsModel: ProductDetailsModel)));
+                                        builder: (ctx) =>  ScreenProductDetails(productDetailsModel: productDetailsModel[index])));
                               },
                               child: Container(
                                 height: mHeight * .06,
@@ -113,7 +113,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                               image: NetworkImage(
                                                   "http://192.168.1.9:3010/api" +
                                                       "/product/images/" +
-                                                      productDetailsModel[Index]
+                                                      productDetailsModel[index]
                                                           .images![0].url.toString()),
                                               fit: BoxFit.fill)),
                                     ),
@@ -130,7 +130,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            productDetailsModel[Index]
+                                            productDetailsModel[index]
                                                 .name
                                                 .toString(),maxLines: 2,
                                             style: const TextStyle(
@@ -152,7 +152,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                                 width: mWidth * .01,
                                               ),
                                               Text(
-                                                productDetailsModel[Index]
+                                                productDetailsModel[index]
                                                     .dicountAmount
                                                     .toString(),
                                                 style: TextStyle(
@@ -161,7 +161,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                                     color: Colors.redAccent),
                                               ),
                                               Text(
-                                                productDetailsModel[Index]
+                                                productDetailsModel[index]
                                                     .price
                                                     .toString(),
                                                 style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 
 class ProductView extends StatefulWidget {
    ProductView({Key? key,   required this.productDetailsModel, }) : super(key: key);
@@ -19,7 +20,8 @@ class _ProductViewState extends State<ProductView> {
         physics: BouncingScrollPhysics(),
         itemBuilder: (ctx, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () { Navigator.push(context,
+                MaterialPageRoute(builder: (ctx) => ScreenProductDetails( productDetailsModel:widget.productDetailsModel[index],)));},
             child: Container(
               height: mHeight * .205,
               width: mWidth,

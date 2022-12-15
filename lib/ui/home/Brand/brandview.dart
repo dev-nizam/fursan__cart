@@ -1,57 +1,27 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
-import 'package:fursan_cart/model/banner/BannerModel.dart';
-import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 
-class BestOffersProductView extends StatefulWidget {
-  BestOffersProductView({Key? key,   }) : super(key: key);
-
+class BrandView extends StatefulWidget {
+  BrandView({Key? key,   required this.productDetailsModel, }) : super(key: key);
+  List <ProductDetailsModel> productDetailsModel;
   @override
-  State<BestOffersProductView> createState() => _BestOffersProductViewState();
+  State<BrandView> createState() => _BrandViewState();
 }
 
-class _BestOffersProductViewState extends State<BestOffersProductView> {
-  void initState() {
-    BlocProvider.of<ProductDetailsBloc>(context).add(FatchBestoffersProduct());
-    super.initState();
-  }
+class _BrandViewState extends State<BrandView> {
 
-  late List<ProductDetailsModel> productDetailsModel;
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
-    return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
-  builder: (context, state) {
-      if (state is ProductDetailsLoading) {
-        print("ProductDetailsLoading");
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      if (state is ProductDetailsError) {
-
-        print("ProductDetailsError");
-        return const Center(
-          child: Text("Something went wrong"),
-        );
-      }
-      if (state is ProductDetailsLoaded) {
-        print("ProductDetailsLoaded");
-        productDetailsModel = BlocProvider.of<ProductDetailsBloc>(context).productDetailsModel;
     return ListView.separated(
         physics: BouncingScrollPhysics(),
         itemBuilder: (ctx, index) {
           return GestureDetector(
-            onTap: () {
-
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => ScreenProductDetails(productDetailsModel: productDetailsModel[index])));
-            },
+            onTap: () { Navigator.push(context,
+                MaterialPageRoute(builder: (ctx) => ScreenProductDetails( productDetailsModel:widget.productDetailsModel[index],)));},
             child: Container(
               height: mHeight * .205,
               width: mWidth,
@@ -67,10 +37,9 @@ class _BestOffersProductViewState extends State<BestOffersProductView> {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage("http://192.168.1.9:3010/api" +
-                                "/product/images/"+ productDetailsModel[index].images![0].url.toString()
-
-                            )
-                        )),
+                                "/product/images/" +
+                                widget.productDetailsModel[index]
+                                    .images![0].url.toString()))),
                   ),
                   Container(
                     height: mHeight * .1,
@@ -82,7 +51,9 @@ class _BestOffersProductViewState extends State<BestOffersProductView> {
                           height: mHeight * .02,
                         ),
                         Text(
-                            productDetailsModel[index].name.toString(),maxLines: 1,
+                          widget.productDetailsModel[index]
+                              .name!
+                              .toString(),maxLines: 1,
                           style: TextStyle(fontSize: 14),
                         ),
                         RatingBar.builder(
@@ -109,7 +80,9 @@ class _BestOffersProductViewState extends State<BestOffersProductView> {
                               size: 14,
                             ),
                             Text(
-                              productDetailsModel[index].price.toString(),maxLines: 2,
+                              widget.productDetailsModel[index]
+                                  .price!
+                                  .toString(),maxLines: 2,
                               style:
                               TextStyle(color: Colors.grey, fontSize: 14),
                             )
@@ -129,12 +102,7 @@ class _BestOffersProductViewState extends State<BestOffersProductView> {
             thickness: 1,
           );
         },
-        itemCount: productDetailsModel.length);
-  }
-
-        return Container();
-  },
-);
+        itemCount:  widget.productDetailsModel.length);
   }
 
   List Images = [

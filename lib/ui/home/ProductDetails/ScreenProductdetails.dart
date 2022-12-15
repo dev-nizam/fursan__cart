@@ -13,8 +13,8 @@ import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 import 'ScreenBuyNow.dart';
 
 class ScreenProductDetails extends StatefulWidget {
-   ScreenProductDetails({Key? key,required this.ProductDetailsModel}) : super(key: key);
- final ProductDetailsModel;
+   ScreenProductDetails({Key? key, required this.productDetailsModel,}) : super(key: key);
+  final ProductDetailsModel productDetailsModel;
   @override
   State<ScreenProductDetails> createState() => _ScreenProductDetailsState();
 }
@@ -38,7 +38,8 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(widget.ProductDetailsModel.images[0].toString()
+                        image: NetworkImage("http://192.168.1.9:3010/api" +
+                            "/product/images/" +widget.productDetailsModel.images![0].url.toString()
                           ),
                         fit: BoxFit.contain)),
               ),
@@ -48,23 +49,23 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
               Row(
                 children: [
                   SizedBox(
-                    width: mWidth * .1,
+                    width: mWidth * .05,
                   ),
                   Column(
                     children: [
                       Text(
-                        'Television 32" Smart TV',
-                        style: TextStyle(fontSize: 20),
+                        widget.productDetailsModel.name.toString(),
+                        style: TextStyle(fontSize: 15),
                       ),
                       SizedBox(
-                        height: mHeight * .005,
+                        height: mHeight * .001,
                       ),
                     ],
                   ),
                   Row(
                     children: [
                       SizedBox(
-                        width: mWidth * .12,
+                        width: mWidth * .02,
                       ),
                       Icon(
                         Icons.currency_rupee_rounded,
@@ -72,8 +73,8 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                         size: 14,
                       ),
                       Text(
-                        "50000",
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                        widget.productDetailsModel.price.toString(),
+                        style: TextStyle(color: Colors.grey, fontSize: 18),
                       )
                     ],
                   ),
@@ -92,129 +93,71 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 indent: 40,
                 endIndent: 40,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: mWidth * .15, top: mHeight * .01),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "1 - 10",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Text(
-                              "sets",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: mHeight * .002,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "₹",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                            SizedBox(
-                              width: mWidth * .012,
-                            ),
-                            Text(
-                              "50,000",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: mWidth * .11, top: mHeight * .01),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "1 - 10",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Text(
-                              "sets",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: mHeight * .002,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "₹",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                            SizedBox(
-                              width: mWidth * .012,
-                            ),
-                            Text(
-                              "50,000",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: mWidth * .11, top: mHeight * .01),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "1 - 10",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Text(
-                              "sets",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: mHeight * .002,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "₹",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                            SizedBox(
-                              width: mWidth * .012,
-                            ),
-                            Text(
-                              "50,000",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: mHeight * .058,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (ctx, index) {
+                    return Container(
+                      margin: EdgeInsets.only(
+                          left: mWidth * .13, top: mHeight * .01),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                widget.productDetailsModel.discPerQtt![index].qttFrom
+                                    .toString(),
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                              const Text(
+                                " - ",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              Text(
+                                widget.productDetailsModel.discPerQtt![index].qttTo
+                                    .toString(),
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                              const Text(
+                                "sets",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: mHeight * .002,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "₹",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              SizedBox(
+                                width: mWidth * .012,
+                              ),
+                              Text(
+                                widget.productDetailsModel.discPerQtt![index]
+                                    .discFlatAmnt
+                                    .toString(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      width: mWidth * .01,
+                    );
+                  },
+                  itemCount: 3,
+                ),
               ),
               SizedBox(
                 height: mHeight * .01,
@@ -296,8 +239,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                        "With this Samsung TV, every image on the screen comes to life, giving you a home theatre experience. With the HD visual quality of this TV, you can enjoy vibrant movie scenes. Additionally, HDR increases the screen's brightness and brings out the subtleties of the material. Moreover, the Contrast Enhancer on this TV improves contrast and offers superb image quality with increased depth."),
-                  ],
+                widget.productDetailsModel!.description.toString()                  )],
                 ),
               ),
               Row(

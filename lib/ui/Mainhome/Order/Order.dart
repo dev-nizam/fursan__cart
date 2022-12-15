@@ -78,11 +78,11 @@ class _OrderState extends State<Order> {
                   ),
                   IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScreenProductDetails( ProductDetailsModel: ProductDetailsModel(),)
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ScreenProductDetails( ProductDetailsModel: ProductDetailsModel(),)
+                        //     ));
                       },
                       icon: Icon(Icons.arrow_forward_ios))
                 ],

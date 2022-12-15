@@ -85,9 +85,9 @@ class _SearchPageHomeState extends State<SearchPageHome> {
                           // width: 200,
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => ScreenProductDetails(
-                                      )));
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (ctx) => ScreenProductDetails(productDetailsModel: productDetailsModel
+                              //         )));
                             },
                             child: Card(
                                 child: ListTile(

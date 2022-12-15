@@ -13,6 +13,7 @@ import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/widgets/splash/splash.dart';
 
 import 'repository/api/ProductDetails/TrendingApi.dart';
+import 'repository/api/ProductDetails/bestoffersProductApi.dart';
 import 'repository/api/authentication/firbase/facebook.dart';
 import 'repository/api/authentication/firbase/googel.dart';
 import 'repository/api/banner/bannerApi.dart';
@@ -37,7 +38,7 @@ void main() async {
   ApiBrand apiBrandr=ApiBrand();
   ApiBrandId apiBrandId=ApiBrandId();
   SearchApi searchApi=SearchApi();
-
+  BestoffersProductApi bestoffersProductApi=BestoffersProductApi();
   ProductDetailsApi productDetailsApi=ProductDetailsApi();
   runApp(MultiBlocProvider(
       providers: [
@@ -45,7 +46,7 @@ void main() async {
         BlocProvider(create: (BuildContext context)=>SignupBloc(apiSignUp)),
         BlocProvider(create: (context) => BannerBloc(apiBanner)),
         BlocProvider(create: (context) => BrandBloc(apiBrandr)),
-        BlocProvider(create: (context) => ProductDetailsBloc(productDetailsApi)),
+        BlocProvider(create: (context) => ProductDetailsBloc(productDetailsApi,bestoffersProductApi)),
         BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
         BlocProvider(create: (context) => SearchBloc(searchApi)),
 
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
