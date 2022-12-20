@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/login/signup/signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -33,6 +34,8 @@ class _SigninState extends State<Signin> {
           print("loaded");
           Navigator.push(
               context, MaterialPageRoute(builder: (ctx) => MainHome()));
+          String token = state.Token;
+
         }
         if (state is SigninError) {
           print("Error");
@@ -251,4 +254,9 @@ Future<UserCredential> signInWithFacebook() async {
 
   // Once signed in, return the UserCredential
   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+}
+Future<void> token(String token) async {
+  final preferances=await SharedPreferences.getInstance();
+  preferances.setString('Token', token);
+
 }

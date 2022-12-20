@@ -100,7 +100,7 @@ class _BestOffersfullState extends State<BestOffersfull> {
                             BorderRadius.circular(10),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "http://192.168.1.9:3010/api" +
+                                    "http://fursancart.rootsys.in/api" +
                                         "/banner/images/" + widget.bestoffers1[index].banner![0].url.toString()),
                                 fit: BoxFit.cover)),
                       ),

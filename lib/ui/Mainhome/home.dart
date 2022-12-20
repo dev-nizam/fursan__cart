@@ -78,3 +78,4 @@ class _HomeState extends State<Home> {
         ));
   }
 }
+String mainApi="http://fursancart.rootsys.in/api";

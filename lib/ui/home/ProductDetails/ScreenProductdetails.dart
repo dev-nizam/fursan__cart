@@ -10,6 +10,7 @@ import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 
+import '../../Mainhome/home.dart';
 import 'ScreenBuyNow.dart';
 
 class ScreenProductDetails extends StatefulWidget {
@@ -38,7 +39,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage("http://192.168.1.9:3010/api" +
+                        image: NetworkImage(mainApi +
                             "/product/images/" +widget.productDetailsModel.images![0].url.toString()
                           ),
                         fit: BoxFit.contain)),

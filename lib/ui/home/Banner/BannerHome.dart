@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/banner/BannerModel.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
 
 class BannerHome extends StatefulWidget {
   const BannerHome({Key? key}) : super(key: key);
@@ -117,7 +118,7 @@ class _BannerHomeState extends State<BannerHome> {
                         color: Colors.amber,
                         image: DecorationImage(
                             image: NetworkImage(
-                                "http://192.168.1.9:3010/api" +
+                               mainApi +
                                     "/banner/images/" +
                                     bannerimg[index].banner!
                                         .first

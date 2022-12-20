@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 
 class ProductView extends StatefulWidget {
@@ -36,7 +37,7 @@ class _ProductViewState extends State<ProductView> {
                     width: mWidth * .35,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage("http://192.168.1.9:3010/api" +
+                            image: NetworkImage(mainApi +
                                 "/product/images/" +
                                 widget.productDetailsModel[index]
                                     .images![0].url.toString()))),

@@ -66,7 +66,7 @@ class _BestOffersProductViewState extends State<BestOffersProductView> {
                     width: mWidth * .35,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage("http://192.168.1.9:3010/api" +
+                            image: NetworkImage("http://fursancart.rootsys.in/api" +
                                 "/product/images/"+ productDetailsModel[index].images![0].url.toString()
 
                             )

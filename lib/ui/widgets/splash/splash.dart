@@ -13,8 +13,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   Future<void> getSaveDate() async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('token') != null) {
-      print(prefs.getString('token'));
+    if (prefs.containsKey("Token")) {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (ctx) => MainHome()));
     } else {

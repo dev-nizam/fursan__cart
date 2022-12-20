@@ -30,7 +30,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         // preference.setString('userId', signinModel!.user!.id.toString());
         //print("OOOOOOOOOO" + modelClassToken!.tokens!.accessToken!);
 
-        emit(SigninLoaded());
+        emit(SigninLoaded(Token: signinModel.tokens!.accessToken.toString()));
       } catch (e) {
         print("***********$e");
         emit(SigninError());
@@ -42,7 +42,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
 
       try {
         await facebook.signInWithFacebook();
-        emit(SigninLoaded());
+        emit(SigninLoaded(Token: signinModel.tokens!.accessToken.toString()));
       } catch (e) {
         print(e);
         emit(SigninError());
@@ -55,7 +55,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
 
       try {
         await google.signInWithGoogle();
-        emit(SigninLoaded());
+        emit(SigninLoaded(Token: signinModel.tokens!.accessToken.toString()));
         print("google loaded");
       } catch (e) {
         print(e);

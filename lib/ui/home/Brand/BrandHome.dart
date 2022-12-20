@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/brand/BrandModel.dart';
 import 'package:fursan_cart/repository/bloc/brandMain/brand/brand_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/Brand/ScreenBrand.dart';
 
 
@@ -102,7 +103,7 @@ class _BrandHomeState extends State<BrandHome> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              "http://192.168.1.9:3010/api" +
+                                             mainApi +
                                                   "/brand/images/" +
                                                   brandModel[index].image!.url.toString()),
                                           fit: BoxFit.fill),
