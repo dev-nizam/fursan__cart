@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/repository/api/authentication/login.dart';
 import 'package:fursan_cart/repository/api/authentication/signup.dart';
 import 'package:fursan_cart/repository/api/brand/brandIdApi.dart';
+import 'package:fursan_cart/repository/api/category/CatogeryApi.dart';
 import 'package:fursan_cart/repository/api/search%20api/SearchApi.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/repository/bloc/brandMain/brandid/brandid_bloc.dart';
+import 'package:fursan_cart/repository/bloc/category/catogery_bloc.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/widgets/splash/splash.dart';
@@ -38,6 +40,7 @@ void main() async {
   ApiBrand apiBrandr=ApiBrand();
   ApiBrandId apiBrandId=ApiBrandId();
   SearchApi searchApi=SearchApi();
+  CatogeryApi catogeryApi= CatogeryApi();
   BestoffersProductApi bestoffersProductApi=BestoffersProductApi();
   ProductDetailsApi productDetailsApi=ProductDetailsApi();
   runApp(MultiBlocProvider(
@@ -49,6 +52,7 @@ void main() async {
         BlocProvider(create: (context) => ProductDetailsBloc(productDetailsApi,bestoffersProductApi)),
         BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
         BlocProvider(create: (context) => SearchBloc(searchApi)),
+        BlocProvider(create: (context) => CatogeryBloc(catogeryApi)),
 
       ],
       child: MyApp()));

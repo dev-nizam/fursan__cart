@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/banner/BannerModel.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenBestOffers.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenOfferProducts.dart';
 import 'package:fursan_cart/ui/home/bestoffer/bestoffersProductView.dart';
@@ -101,18 +102,18 @@ class _BestOffHomeState extends State<BestOffHome> {
             SizedBox(
               height: mHeight * .015,
             ),
-            GestureDetector(
-              onTap: (){
-    Navigator.push(
-    context, MaterialPageRoute(builder: (ctx) => ScreenBestOffers(bestoffers1: bestoffers)));
-              },
-              child: Container(
-                  height: mHeight * .21,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (ctx, index) {
+            Container(
+                height: mHeight * .21,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx, index) {
 
-                        return Stack(
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (ctx) => ScreenBestOffers(bestoffers1: bestoffers[index])));
+                        },
+                        child: Stack(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 17),
@@ -125,7 +126,7 @@ class _BestOffHomeState extends State<BestOffHome> {
                                     BorderRadius.circular(10),
                                     image: DecorationImage(
                                         image: NetworkImage(
-                                            "http://fursancart.rootsys.in/api" +
+                                            mainApi +
                                                 "/banner/images/" + bestoffers[index].banner![0].url.toString()),
                                         fit: BoxFit.cover)),
                               ),
@@ -168,15 +169,15 @@ class _BestOffHomeState extends State<BestOffHome> {
                               ),
                             )
                           ],
-                        );
-                      },
-                      separatorBuilder: (ctx, index) {
-                        return const SizedBox(
-                          width: 1,
-                        );
-                      },
-                      itemCount: bestoffers.length >6? 6:bestoffers.length)),
-            ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (ctx, index) {
+                      return const SizedBox(
+                        width: 1,
+                      );
+                    },
+                    itemCount: bestoffers.length >6? 6:bestoffers.length)),
             SizedBox(
               height: mHeight * .02,
             ),

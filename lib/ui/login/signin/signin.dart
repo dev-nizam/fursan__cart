@@ -31,9 +31,11 @@ class _SigninState extends State<Signin> {
           print("loading");
         }
         if (state is SigninLoaded) {
+          savetoken(state.Token);
           print("loaded");
           Navigator.push(
               context, MaterialPageRoute(builder: (ctx) => MainHome()));
+
           String token = state.Token;
 
         }
@@ -242,21 +244,13 @@ class _SigninState extends State<Signin> {
           ])),
     );
   }
+
+    Future<void> savetoken(String token) async {
+    print(token);
+      final preferances = await SharedPreferences.getInstance();
+      preferances.setString("token", token);
+    }
 }
 
-Future<UserCredential> signInWithFacebook() async {
-  // Trigger the sign-in flow
-  final LoginResult loginResult = await FacebookAuth.instance.login();
 
-  // Create a credential from the access token
-  final OAuthCredential facebookAuthCredential =
-  FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-  // Once signed in, return the UserCredential
-  return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-}
-Future<void> token(String token) async {
-  final preferances=await SharedPreferences.getInstance();
-  preferances.setString('Token', token);
-
-}

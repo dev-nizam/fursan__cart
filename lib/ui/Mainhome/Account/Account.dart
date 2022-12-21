@@ -4,6 +4,7 @@ import 'package:fursan_cart/ui/Mainhome/Order/Order.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenDeliveryAddress.dart';
 import 'package:fursan_cart/ui/login/signin/signin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../home/AppBar/Screenfavourites.dart';
 
@@ -273,7 +274,10 @@ class _AccountState extends State<Account> {
                 height: mHeight * .06,
                 width: mWidth * .5,
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      SharedPreferences preference =
+                          await SharedPreferences.getInstance();
+                      preference.clear();
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (ctx) => Signin()),

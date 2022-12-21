@@ -10,9 +10,9 @@ class FetchLogin extends SigninEvent {
 }
 
 class FetchToken extends SigninEvent {
-  // String number;
+  // String email;
   // String password;
-  // FetchLogin({required this.number, required this.password});
+  // FetchToken({required this.email, required this.password});
 }
 class FacebookLogin extends SigninEvent{
 
