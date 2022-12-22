@@ -7,3 +7,4 @@ class ProductDetailsInitial extends ProductDetailsState {}
 class ProductDetailsLoading extends ProductDetailsState {}
 class ProductDetailsLoaded extends ProductDetailsState {}
 class ProductDetailsError extends ProductDetailsState {}
+

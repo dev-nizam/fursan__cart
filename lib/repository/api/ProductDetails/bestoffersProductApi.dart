@@ -6,8 +6,15 @@ import 'package:http/http.dart';
 
 class BestoffersProductApi {
   ApiClient apiClient = ApiClient();
-  String basePath = "/product/all?tag=bestOffers&subId=";
-  Future<List<ProductDetailsModel>> getBestoffersProduct() async {
+
+  Future<List<ProductDetailsModel>> getBestoffersProduct(String tag,String subId) async {
+    String basePath = "/product/all?tag=$tag&subId=$subId";
+    Response response =
+    await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
+    return ProductDetailsModel.listFromJson(json.decode(response.body));
+  }
+  Future<List<ProductDetailsModel>> getBrandProduct(String Brandid) async {
+    String basePath = "/product/all?brandId=$Brandid";
     Response response =
     await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     return ProductDetailsModel.listFromJson(json.decode(response.body));

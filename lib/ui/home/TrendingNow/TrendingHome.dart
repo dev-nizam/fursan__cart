@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
+import 'package:fursan_cart/repository/bloc/trending/tranding_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 import 'package:fursan_cart/ui/home/TrendingNow/ScreenTrending.dart';
@@ -16,33 +17,33 @@ class TrendingHome extends StatefulWidget {
 
 class _TrendingHomeState extends State<TrendingHome> {
   void initState() {
-    BlocProvider.of<ProductDetailsBloc>(context).add(FatchProductDetails());
+    BlocProvider.of<TrandingBloc>(context).add(Fatchtrending());
     super.initState();
   }
 
-  late List<ProductDetailsModel> productDetailsModel;
-  // late List<ProductDetailsModel>  Tranding;
+    late List<ProductDetailsModel> productDetailsModel;
+
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
-    return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
+    return BlocBuilder<TrandingBloc, TrandingState>(
       builder: (context, state) {
-        if (state is ProductDetailsLoading) {
-          print("ProductDetailsLoading");
+        if (state is TrandingLoading) {
+          print("TrandingLoading");
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is ProductDetailsError) {
-          print("ProductDetailsError");
+        if (state is TrandingError) {
+          print("TrandingError");
           return const Center(
             child: Text("Something went wrong"),
           );
         }
-        if (state is ProductDetailsLoaded) {
-          print("ProductDetailsLoaded");
-          productDetailsModel = BlocProvider.of<ProductDetailsBloc>(context).productDetailsModel;
+        if (state is TrandingLoaded) {
+          print("TrandingLoaded");
+          productDetailsModel = BlocProvider.of<TrandingBloc>(context).productDetailsModel;
           return Container(
             child: Column(
               children: [

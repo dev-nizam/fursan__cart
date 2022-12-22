@@ -10,6 +10,7 @@ import 'package:fursan_cart/repository/api/search%20api/SearchApi.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/repository/bloc/brandMain/brandid/brandid_bloc.dart';
 import 'package:fursan_cart/repository/bloc/category/catogery_bloc.dart';
+import 'package:fursan_cart/repository/bloc/trending/tranding_bloc.dart';
 import 'package:fursan_cart/repository/bloc/user/signin/signin_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/BottomNavigation/MainHome.dart';
 import 'package:fursan_cart/ui/widgets/splash/splash.dart';
@@ -49,10 +50,12 @@ void main() async {
         BlocProvider(create: (BuildContext context)=>SignupBloc(apiSignUp)),
         BlocProvider(create: (context) => BannerBloc(apiBanner)),
         BlocProvider(create: (context) => BrandBloc(apiBrandr)),
-        BlocProvider(create: (context) => ProductDetailsBloc(productDetailsApi,bestoffersProductApi)),
+        BlocProvider(create: (context) => TrandingBloc(productDetailsApi)),
+        BlocProvider(create: (context) => ProductDetailsBloc(bestoffersProductApi)),
         BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
         BlocProvider(create: (context) => SearchBloc(searchApi)),
         BlocProvider(create: (context) => CatogeryBloc(catogeryApi)),
+
 
       ],
       child: MyApp()));

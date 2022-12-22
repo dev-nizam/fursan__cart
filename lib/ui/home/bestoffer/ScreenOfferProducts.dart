@@ -9,13 +9,15 @@ import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/AppBar/Cart.dart';
 import 'package:fursan_cart/ui/home/AppBar/Screenfavourites.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
-import 'package:fursan_cart/ui/home/bestoffer/bestoffersProductView.dart';
+
 import 'package:fursan_cart/ui/widgets/ProductView.dart';
 
 class ScreenBestOffers extends StatefulWidget {
-   ScreenBestOffers({Key? key, required this.bestoffers1, }) : super(key: key);
+   ScreenBestOffers({Key? key, required this.subid,required this.tag,required this.bannerTitle, }) : super(key: key);
 
-  final List<BannerModel>bestoffers1;
+final String subid;
+final String tag;
+final String bannerTitle;
 
   @override
   State<ScreenBestOffers> createState() => _ScreenBestOffersState();
@@ -25,7 +27,7 @@ bool search = false;
 
 class _ScreenBestOffersState extends State<ScreenBestOffers> {
   void initState() {
-    BlocProvider.of<ProductDetailsBloc>(context).add(FatchBestoffersProduct());
+    BlocProvider.of<ProductDetailsBloc>(context).add(FatchBestoffersProduct(tag:widget.tag, subid: widget.subid,));
     super.initState();
   }
   late List<ProductDetailsModel> productDetailsModel;
@@ -50,7 +52,7 @@ class _ScreenBestOffersState extends State<ScreenBestOffers> {
         ),
         title: search
             ? Text(
-                widget.bestoffers1![0].bannerTitle!.toString(),
+                widget.bannerTitle!.toString(),
                 style: TextStyle(color: Colors.black),
               )
             : Container(

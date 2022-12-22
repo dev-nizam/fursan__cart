@@ -11,30 +11,16 @@ part 'product_details_state.dart';
 
 class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> {
   late List<ProductDetailsModel> productDetailsModel;
-  // late List<ProductDetailsModel>  Tranding;
-  // late List<ProductDetailsModel> non ;
-  ProductDetailsApi productDetailsApi;
   BestoffersProductApi bestoffersProductApi;
-  ProductDetailsBloc(this.productDetailsApi,this.bestoffersProductApi) : super(ProductDetailsInitial()) {
-    on<FatchProductDetails>((event, emit) async {
-      emit(ProductDetailsLoading());
-      try {
-        productDetailsModel = await productDetailsApi.getProductDetails();
-        // Tranding=productDetailsModel.where((element) => element.tags == null).toList();
-        // non=productDetailsModel.where((element) => element.tags != null).toList();
-        emit(ProductDetailsLoaded());
-      } catch (e) {
-        print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");
-        emit(ProductDetailsError());
-      }
+  ProductDetailsBloc(this.bestoffersProductApi) : super(ProductDetailsInitial()) {
 
-      // TODO: implement event handler
 
       on<FatchBestoffersProduct>((event, emit) async {
         emit(ProductDetailsLoading());
         try {
           productDetailsModel =
-          await bestoffersProductApi.getBestoffersProduct();
+          await bestoffersProductApi.getBestoffersProduct(
+              event.tag, event.subid,);
           // Tranding=productDetailsModel.where((element) => element.tags == null).toList();
           // non=productDetailsModel.where((element) => element.tags != null).toList();
           emit(ProductDetailsLoaded());
@@ -45,7 +31,25 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
 
         // TODO: implement event handler
       }
-      );}
+      );on<FatchBrandProduct>((event, emit) async {
+        emit(ProductDetailsLoading());
+        try {
+          productDetailsModel =
+          await bestoffersProductApi.getBrandProduct(
+            event.Brandid,);
+          // Tranding=productDetailsModel.where((element) => element.tags == null).toList();
+          // non=productDetailsModel.where((element) => element.tags != null).toList();
+          emit(ProductDetailsLoaded());
+        } catch (e) {
+          print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");
+          emit(ProductDetailsError());
+        }
+
+        // TODO: implement event handler
+      }
       );
-  }
-}
+    }}
+
+
+
+

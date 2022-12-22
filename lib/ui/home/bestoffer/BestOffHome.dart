@@ -6,7 +6,7 @@ import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenBestOffers.dart';
 import 'package:fursan_cart/ui/home/bestoffer/ScreenOfferProducts.dart';
-import 'package:fursan_cart/ui/home/bestoffer/bestoffersProductView.dart';
+
 
 class BestOffHome extends StatefulWidget {
   const BestOffHome({Key? key}) : super(key: key);
@@ -111,7 +111,8 @@ class _BestOffHomeState extends State<BestOffHome> {
                       return GestureDetector(
                         onTap: (){
                           Navigator.push(
-                              context, MaterialPageRoute(builder: (ctx) => ScreenBestOffers(bestoffers1: bestoffers[index])));
+                              context, MaterialPageRoute(builder: (ctx) => ScreenBestOffers(subid:bestoffers[index].subCategoryId ,
+                            bannerTitle:bestoffers[index].bannerTitle.toString() ,tag:"bestOffers" ,)));
                         },
                         child: Stack(
                           children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fursan_cart/ui/home/SearchBarhome/SearchPageHome.dart';
 
 class SearchBarHome extends StatefulWidget {
   const SearchBarHome({Key? key}) : super(key: key);
@@ -19,28 +20,34 @@ class _SearchBarHomeState extends State<SearchBarHome> {
             height: mHeight * .01,
           ),
           Center(
-            child: Container(
-              height: mHeight * .07,
-              width: mWidth * .92,
-              child: TextField(
-                enabled: false,
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.withOpacity(.2),
-                  focusedBorder: OutlineInputBorder(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => SearchPageHome()));
+              },
+              child: Container(
+                height: mHeight * .07,
+                width: mWidth * .92,
+                child: TextField(
+                  enabled: false,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.withOpacity(.2),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.circular(15)),
+                    enabledBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(color: Colors.white, width: 2.0),
-                      borderRadius: BorderRadius.circular(15)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.white, width: 2.0),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  hintText: "Search by keyword or Brand",
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    hintText: "Search by keyword or Brand",
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(Icons.search),
 
+                  ),
                 ),
               ),
             ),

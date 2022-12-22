@@ -95,7 +95,9 @@ class _BrandHomeState extends State<BrandHome> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (ctx) =>  ScreenBrand(brandModel: brandModel,)));
+                                          builder: (ctx) =>  ScreenBrand( id: brandModel[index].id.toString(),
+                                            name: brandModel[index].name.toString(),
+                                          )));
                                 },
                                 child: Container(
                                   height: mHeight * .06,

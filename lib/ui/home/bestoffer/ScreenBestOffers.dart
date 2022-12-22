@@ -72,24 +72,26 @@ class _BestOffersfullState extends State<BestOffersfull> {
       ),
       body: Container(
         margin: EdgeInsets.only(left: mWidth * .01, right: mWidth * .01),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (ctx) => ScreenBestOffers(bestoffers1:widget.bestoffers1,)));
-          },
-          child: GridView.builder(
-              itemCount: widget.bestoffers1.length,
-              physics: BouncingScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300,
-                childAspectRatio: .80,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return Stack(
-                  children: [
-                    Padding(
+        child: GridView.builder(
+            itemCount: widget.bestoffers1.length,
+            physics: BouncingScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 300,
+              childAspectRatio: .80,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return Stack(
+                children: [
+                  GestureDetector(
+
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => ScreenBestOffers(subid:widget.bestoffers1[index].subCategoryId ,
+                            bannerTitle:widget.bestoffers1[index].bannerTitle.toString() ,tag:"bestOffers" ,)));
+                    },
+                    child: Padding(
                       padding: const EdgeInsets.only(left: 17),
                       child: Container(
                         height: mHeight * .4,
@@ -105,47 +107,47 @@ class _BestOffersfullState extends State<BestOffersfull> {
                                 fit: BoxFit.cover)),
                       ),
                     ),
-                    Positioned(
-                      left: 17,
-                      top: 0,
-                      bottom: 10,
-                      child: ClipPath(
-                        clipper: CustomPath(),
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: const Color(0xFFD70C4B),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          width: 90,
-                          height: 30,
+                  ),
+                  Positioned(
+                    left: 17,
+                    top: 0,
+                    bottom: 10,
+                    child: ClipPath(
+                      clipper: CustomPath(),
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: const Color(0xFFD70C4B),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        width: 90,
+                        height: 30,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 25,
+                    top: 7,
+                    bottom: 185,
+                    right: 115,
+                    child: RotationTransition(
+                      turns:
+                      const AlwaysStoppedAnimation(322 / 360),
+                      child: Container(
+                        child: const Text(
+                          "Best off",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: Colors.white),
                         ),
                       ),
                     ),
-                    Positioned(
-                      left: 25,
-                      top: 7,
-                      bottom: 185,
-                      right: 115,
-                      child: RotationTransition(
-                        turns:
-                        const AlwaysStoppedAnimation(322 / 360),
-                        child: Container(
-                          child: const Text(
-                            "Best off",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                );
-              }),
-        ),
+                  )
+                ],
+              );
+            }),
       ),
     );
   }

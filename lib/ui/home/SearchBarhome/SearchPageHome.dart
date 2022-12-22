@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/search/SearchModel.dart';
 import 'package:fursan_cart/repository/bloc/search/search_bloc.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
@@ -16,11 +17,11 @@ class SearchPageHome extends StatefulWidget {
 class _SearchPageHomeState extends State<SearchPageHome> {
   TextEditingController ProductController = TextEditingController();
 
-  // void initState() {
-  //   BlocProvider.of<SearchBloc>(context).add(FetchSearch("Iphone"));
-  //   super.initState();
-  // }
-
+  void initState() {
+    BlocProvider.of<SearchBloc>(context).add(FetchSearch("Iphone"));
+    super.initState();
+  }
+  late List<ProductDetailsModel> productDetailsModel;
   late List<SearchModel> searchModel;
   @override
   Widget build(BuildContext context) {
@@ -85,9 +86,8 @@ class _SearchPageHomeState extends State<SearchPageHome> {
                           // width: 200,
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (ctx) => ScreenProductDetails(productDetailsModel: productDetailsModel
-                              //         )));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (ctx) => ScreenProductDetails(productDetailsModel:productDetailsModel[index])));
                             },
                             child: Card(
                                 child: ListTile(
