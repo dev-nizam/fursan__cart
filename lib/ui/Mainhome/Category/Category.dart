@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/category/CatogeryModel.dart';
 import 'package:fursan_cart/repository/bloc/category/catogery_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/Category/subcategoryproducts.dart';
 
 class Category extends StatefulWidget {
   Category({Key? key}) : super(key: key);
@@ -141,19 +142,23 @@ class _CategoryState extends State<Category> {
                                   crossAxisCount: 4,
                                   crossAxisSpacing: 5,
                                   mainAxisSpacing: 15),
-                              itemBuilder: (BuildContext context, int index) {
+                              itemBuilder: (BuildContext context, int indexx) {
                                 return Column(
                                   //mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () {
-                                          // Navigator.of(context).push(
-                                          //     MaterialPageRoute(
-                                          //         builder: (ctx) =>
-                                          //             ScreenSubCatogeryProducts(
-                                          //                 bestOffers:
-                                          //                 bestOffers)));
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (ctx) =>
+                                                  SubCategoryProducts(name:   catogeryModel[index]
+                                                      .subCategories![indexx]
+                                                      .name.toString(),
+                                                  Subid:   catogeryModel[index]
+                                                      .subCategories![indexx]
+                                                      .id.toString(),
+                                                  )));
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -165,7 +170,7 @@ class _CategoryState extends State<Category> {
                                                 "http://fursancart.rootsys.in/api" +
                                                     "/sub-category/images/" +
                                                     catogeryModel[index]
-                                                        .subCategories![index]
+                                                        .subCategories![indexx]
                                                         .image!
                                                         .url
                                                         .toString(),
@@ -177,7 +182,7 @@ class _CategoryState extends State<Category> {
                                     ),
                                     Text(
                                       catogeryModel[index]
-                                          .subCategories![index]
+                                          .subCategories![indexx]
                                           .name
                                           .toString(),
                                     )

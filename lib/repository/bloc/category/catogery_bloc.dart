@@ -9,6 +9,7 @@ part 'catogery_state.dart';
 
 class CatogeryBloc extends Bloc<CatogeryEvent, CatogeryState> {
   late List<CatogeryModel> catogeryModel;
+
   CatogeryApi catogeryApi;
   CatogeryBloc(this.catogeryApi) : super(CatogeryInitial()) {
     on<FetchCatogery>((event, emit) async {

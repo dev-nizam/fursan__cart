@@ -1,4 +1,5 @@
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
@@ -9,6 +10,7 @@ import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../Mainhome/home.dart';
 import 'ScreenBuyNow.dart';
@@ -21,28 +23,84 @@ class ScreenProductDetails extends StatefulWidget {
 }
 
 class _ScreenProductDetailsState extends State<ScreenProductDetails> {
-
   int Quantity = 1;
+  int _current = 0;
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: Colors.white,
-      body:ListView(
-        physics: BouncingScrollPhysics(),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           Column(
             children: [
-              Container(
-                height: mHeight * .32,
-                width: mWidth,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(mainApi +
-                            "/product/images/" +widget.productDetailsModel.images![0].url.toString()
+              Stack(
+                children: [
+                  SizedBox(
+                    height: mHeight * .3,
+                    width: mWidth,
+                    child: CarouselSlider.builder(
+                      options: CarouselOptions(
+                          height: 400,
+                          aspectRatio: 2.0,
+                          viewportFraction: 1,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          scrollDirection: Axis.horizontal,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          }),
+                      itemCount: 2,
+                      itemBuilder: (BuildContext context, int index,
+                          int pageViewIndex) =>
+                          Container(
+                            height: MediaQuery.of(context).size.height * .29,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        "http://fursancart.rootsys.in/api" +
+                                            "/product/images/" +
+                                            widget.productDetailsModel.images!.first.url
+                                                .toString()),
+                                    fit: BoxFit.contain)),
                           ),
-                        fit: BoxFit.contain)),
+                    ),
+                  ),
+                  Positioned(
+                    left: mWidth * .8,
+                    child: Container(
+                      color: Colors.yellow,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.favorite_border)),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: mHeight * .01,
+              ),
+              AnimatedSmoothIndicator(
+                activeIndex: _current,
+                count: 2,
+                effect: const JumpingDotEffect(
+                  dotColor: Colors.grey,
+                  activeDotColor: Colors.black,
+                  dotHeight: 10,
+                  dotWidth: 10,
+                ),
               ),
               SizedBox(
                 height: mHeight * .02,
@@ -50,32 +108,41 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
               Row(
                 children: [
                   SizedBox(
-                    width: mWidth * .05,
+                    width: mWidth * .1,
                   ),
                   Column(
                     children: [
-                      Text(
-                        widget.productDetailsModel.name.toString(),
-                        style: TextStyle(fontSize: 15),
+                      SizedBox(
+                        height: mHeight * .06,
+                        width: mWidth * .61,
+                        child: Text(
+                          widget.productDetailsModel.name.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
                       ),
                       SizedBox(
-                        height: mHeight * .001,
+                        height: mHeight * .005,
                       ),
                     ],
                   ),
                   Row(
                     children: [
                       SizedBox(
-                        width: mWidth * .02,
+                        width: mWidth * .04,
                       ),
-                      Icon(
-                        Icons.currency_rupee_rounded,
-                        color: Colors.grey,
-                        size: 14,
+                      const Text(
+                        "₹",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.grey),
                       ),
                       Text(
                         widget.productDetailsModel.price.toString(),
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
+                        style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -86,10 +153,10 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   SizedBox(
                     width: mWidth * .1,
                   ),
-                  WidgetStar(),
+                  const WidgetStar(),
                 ],
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
                 indent: 40,
                 endIndent: 40,
@@ -163,12 +230,12 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
               SizedBox(
                 height: mHeight * .01,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
                 indent: 40,
                 endIndent: 40,
               ),
-              WidgetCounting(),
+              const WidgetCounting(),
               SizedBox(
                 height: mHeight * .02,
               ),
@@ -177,20 +244,23 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth * .8,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => ScreenCart()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => const ScreenCart()));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Color(0xff264050), //background color of button
+                      primary:
+                      const Color(0xff264050), //background color of button
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "ADD TO CART",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     )),
               ),
               SizedBox(
@@ -201,20 +271,24 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth * .8,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => ScreenBuyNow()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (ctx) => ScreenBuyNow(
+                      //             productDetailsModel: widget.productDetailsModel)));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Color(0xffFFC113), //background color of button
+                      primary:
+                      const Color(0xffFFC113), //background color of button
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "BUY NOW",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     )),
               ),
               SizedBox(
@@ -225,7 +299,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   SizedBox(
                     width: mWidth * .1,
                   ),
-                  Text(
+                  const Text(
                     "Product Details",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
                   ),
@@ -233,14 +307,14 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
               ),
               Container(
                 margin:
-                    EdgeInsets.only(left: mWidth * .05, top: mHeight * .005),
+                EdgeInsets.only(left: mWidth * .05, top: mHeight * .005),
                 height: mHeight * .2,
                 width: mWidth * .85,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                widget.productDetailsModel!.description.toString()                  )],
+                    Text(widget.productDetailsModel.description.toString()),
+                  ],
                 ),
               ),
               Row(
@@ -248,7 +322,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   SizedBox(
                     width: mWidth * .1,
                   ),
-                  Text(
+                  const Text(
                     "Rating & Reviews",
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
                   ),
@@ -262,7 +336,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   SizedBox(
                     width: mWidth * .1,
                   ),
-                  WidgetStar(),
+                  const WidgetStar(),
                 ],
               ),
               SizedBox(
@@ -278,13 +352,13 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                       SizedBox(
                         height: mHeight * .01,
                       ),
-                      Text(
+                      const Text(
                         "Value for money",
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 15),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 60, top: 5),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 60, top: 5),
                         child: Text(
                           "Shafeek",
                           style: TextStyle(
@@ -301,7 +375,8 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
             ],
           )
         ],
-      ));
+      ),
+    );
 
   }
   List  Images=[

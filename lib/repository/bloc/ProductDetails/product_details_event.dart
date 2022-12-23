@@ -12,3 +12,7 @@ class FatchBrandProduct extends ProductDetailsEvent{
   String Brandid;
   FatchBrandProduct({required this.Brandid});
 }
+class FatchSubProduct extends ProductDetailsEvent{
+  String Subid;
+  FatchSubProduct({required this.Subid});
+}

@@ -19,4 +19,10 @@ class BestoffersProductApi {
     await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     return ProductDetailsModel.listFromJson(json.decode(response.body));
   }
+  Future<List<ProductDetailsModel>> getSubProduct(String Subid) async {
+    String basePath = "/product/all?subId=$Subid";
+    Response response =
+    await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
+    return ProductDetailsModel.listFromJson(json.decode(response.body));
+  }
 }

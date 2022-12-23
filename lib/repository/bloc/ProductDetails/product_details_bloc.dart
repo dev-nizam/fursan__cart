@@ -21,8 +21,6 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
           productDetailsModel =
           await bestoffersProductApi.getBestoffersProduct(
               event.tag, event.subid,);
-          // Tranding=productDetailsModel.where((element) => element.tags == null).toList();
-          // non=productDetailsModel.where((element) => element.tags != null).toList();
           emit(ProductDetailsLoaded());
         } catch (e) {
           print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");
@@ -37,6 +35,21 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
           productDetailsModel =
           await bestoffersProductApi.getBrandProduct(
             event.Brandid,);
+          emit(ProductDetailsLoaded());
+        } catch (e) {
+          print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");
+          emit(ProductDetailsError());
+        }
+
+        // TODO: implement event handler
+      }
+      );
+      on<FatchSubProduct>((event, emit) async {
+        emit(ProductDetailsLoading());
+        try {
+          productDetailsModel =
+          await bestoffersProductApi.getSubProduct(
+            event.Subid,);
           // Tranding=productDetailsModel.where((element) => element.tags == null).toList();
           // non=productDetailsModel.where((element) => element.tags != null).toList();
           emit(ProductDetailsLoaded());
