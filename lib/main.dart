@@ -39,7 +39,7 @@ void main() async {
   ApiSignUp apiSignUp=ApiSignUp();
   ApiBanner apiBanner=ApiBanner();
   ApiBrand apiBrandr=ApiBrand();
-  ApiBrandId apiBrandId=ApiBrandId();
+  // ApiBrandId apiBrandId=ApiBrandId();
   SearchApi searchApi=SearchApi();
   CatogeryApi catogeryApi= CatogeryApi();
   BestoffersProductApi bestoffersProductApi=BestoffersProductApi();
@@ -52,7 +52,7 @@ void main() async {
         BlocProvider(create: (context) => BrandBloc(apiBrandr)),
         BlocProvider(create: (context) => TrandingBloc(productDetailsApi)),
         BlocProvider(create: (context) => ProductDetailsBloc(bestoffersProductApi)),
-        BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
+        // BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
         BlocProvider(create: (context) => SearchBloc(searchApi)),
         BlocProvider(create: (context) => CatogeryBloc(catogeryApi)),
 

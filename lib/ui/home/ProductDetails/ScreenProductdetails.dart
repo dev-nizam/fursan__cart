@@ -11,7 +11,6 @@ import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../Mainhome/home.dart';
 import 'ScreenBuyNow.dart';
 
@@ -25,6 +24,7 @@ class ScreenProductDetails extends StatefulWidget {
 class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int Quantity = 1;
   int _current = 0;
+  bool _hasBeenPressed = false;
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
@@ -72,7 +72,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                                     image: NetworkImage(
                                         "http://fursancart.rootsys.in/api" +
                                             "/product/images/" +
-                                            widget.productDetailsModel.images!.first.url
+                                            widget.productDetailsModel.images![index].url
                                                 .toString()),
                                     fit: BoxFit.contain)),
                           ),
@@ -81,10 +81,13 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   Positioned(
                     left: mWidth * .8,
                     child: Container(
-                      color: Colors.yellow,
                       child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.favorite_border)),
+                          onPressed: () {
+                            setState(() {
+                              _hasBeenPressed = !_hasBeenPressed;
+                            },);
+                          },
+                          icon:  Icon(Icons.favorite_border,color: _hasBeenPressed ? Colors.black : Colors.yellowAccent, ),),
                     ),
                   )
                 ],
@@ -94,7 +97,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
               ),
               AnimatedSmoothIndicator(
                 activeIndex: _current,
-                count: 2,
+                count: widget.productDetailsModel.images!.length ,
                 effect: const JumpingDotEffect(
                   dotColor: Colors.grey,
                   activeDotColor: Colors.black,
