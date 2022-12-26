@@ -31,12 +31,14 @@ class _SigninState extends State<Signin> {
           print("loading");
         }
         if (state is SigninLoaded) {
-          savetoken(state.Token);
+          final userid=state.data.user!.id;
+          final token=state.data.tokens!.accessToken;
+          savetoken(token!,userid!);
           print("loaded");
           Navigator.push(
               context, MaterialPageRoute(builder: (ctx) => MainHome()));
 
-          String token = state.Token;
+          // String token = state.Token;
 
         }
         if (state is SigninError) {
@@ -245,10 +247,11 @@ class _SigninState extends State<Signin> {
     );
   }
 
-    Future<void> savetoken(String token) async {
+    Future<void> savetoken(String token,String userid) async {
     print(token);
       final preferances = await SharedPreferences.getInstance();
       preferances.setString("token", token);
+      preferances.setString("userid", userid);
     }
 }
 

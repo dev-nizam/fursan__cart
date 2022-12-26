@@ -5,11 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
+import 'package:fursan_cart/model/favorites/FavoritesModel.dart';
 import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
+import 'package:fursan_cart/repository/bloc/favorites/favorites_bloc.dart';
 
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
+import 'package:fursan_cart/ui/widgets/favourites/favouritesView.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Mainhome/home.dart';
 import 'ScreenBuyNow.dart';
@@ -25,6 +28,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int Quantity = 1;
   int _current = 0;
   bool _hasBeenPressed = false;
+  late FavoritesModel favoritesModel;
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
@@ -80,15 +84,44 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   ),
                   Positioned(
                     left: mWidth * .8,
-                    child: Container(
+                    child: BlocListener<FavoritesBloc, FavoritesState>(
+  listener: (context, state) {
+    if (state is FavoriteLoading) {
+      const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    if (state is FavoriteLoaded) {
+      // BlocProvider.of<ProductBloc>(context)
+      //     .add(FetchProduct(subId: widget.id));
+      favoritesModel =
+          BlocProvider.of<FavoritesBloc>(context).favoritesModel;
+    }
+    if (state is FavoriteError) {
+      const Center(
+        child: Text("something went wrong"),
+      );
+    }
+    // TODO: implement listener
+  },
+  child: Container(
                       child: IconButton(
                           onPressed: () {
+                            print(favoritesModel.productsId.toString());
+
                             setState(() {
                               _hasBeenPressed = !_hasBeenPressed;
                             },);
+                            BlocProvider.of<
+                                FavoritesBloc>(
+                                context)
+                                .add(Fetchfavorites(productid: favoritesModel.productsId.toString(), userid: favoritesModel.userId.toString()));
+
+
                           },
-                          icon:  Icon(Icons.favorite_border,color: _hasBeenPressed ? Colors.black : Colors.yellowAccent, ),),
+                          icon:  Icon(Icons.favorite,color: _hasBeenPressed ? Colors.black : Colors.yellowAccent, ),),
                     ),
+),
                   )
                 ],
               ),
@@ -274,11 +307,11 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth * .8,
                 child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (ctx) => ScreenBuyNow(
-                      //             productDetailsModel: widget.productDetailsModel)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => ScreenBuyNow(
+                                  productDetailsModel: widget.productDetailsModel)));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

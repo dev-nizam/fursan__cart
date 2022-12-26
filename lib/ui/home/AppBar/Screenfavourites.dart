@@ -75,6 +75,6 @@ class _ScreenFavouritesState extends State<ScreenFavourites> {
             ),
           ],
         ),
-        body: FavouritesView());
+        body: FavouritesView(productDetailsModel:productDetailsModel,));
   }
 }

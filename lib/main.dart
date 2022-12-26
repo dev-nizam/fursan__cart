@@ -6,6 +6,7 @@ import 'package:fursan_cart/repository/api/authentication/login.dart';
 import 'package:fursan_cart/repository/api/authentication/signup.dart';
 import 'package:fursan_cart/repository/api/brand/brandIdApi.dart';
 import 'package:fursan_cart/repository/api/category/CatogeryApi.dart';
+import 'package:fursan_cart/repository/api/favorites/favoritesApi.dart';
 import 'package:fursan_cart/repository/api/search%20api/SearchApi.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/repository/bloc/brandMain/brandid/brandid_bloc.dart';
@@ -23,6 +24,7 @@ import 'repository/api/banner/bannerApi.dart';
 import 'repository/api/brand/brandApi.dart';
 import 'repository/bloc/ProductDetails/product_details_bloc.dart';
 import 'repository/bloc/brandMain/brand/brand_bloc.dart';
+import 'repository/bloc/favorites/favorites_bloc.dart';
 import 'repository/bloc/search/search_bloc.dart';
 import 'repository/bloc/user/signup/signup_bloc.dart';
 
@@ -44,6 +46,7 @@ void main() async {
   CatogeryApi catogeryApi= CatogeryApi();
   BestoffersProductApi bestoffersProductApi=BestoffersProductApi();
   ProductDetailsApi productDetailsApi=ProductDetailsApi();
+  ApiFavorites apiFavorites=ApiFavorites();
   runApp(MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context)=>SigninBloc(apiLogin,google,facebook)),
@@ -55,6 +58,7 @@ void main() async {
         // BlocProvider(create: (context) => BrandidBloc(apiBrandId)),
         BlocProvider(create: (context) => SearchBloc(searchApi)),
         BlocProvider(create: (context) => CatogeryBloc(catogeryApi)),
+        BlocProvider(create: (context) => FavoritesBloc(apiFavorites)),
 
 
       ],

@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 
 class FavouritesView extends StatefulWidget {
-  FavouritesView({Key? key,  }) : super(key: key);
-
+  FavouritesView({Key? key, required this.productDetailsModel  }) : super(key: key);
+  List <ProductDetailsModel> productDetailsModel;
   @override
   State<FavouritesView> createState() => _FavouritesViewState();
 }
@@ -32,14 +33,14 @@ class _FavouritesViewState extends State<FavouritesView> {
                   Container(
                     height: mHeight * .17,
                     width: mWidth * .35,
-                    // decoration: BoxDecoration(
-                    //     image: DecorationImage(
-                    //         image: NetworkImage("http://192.168.1.9:3010/api" +
-                    //             "/product/images/" +
-                    //             widget.productDetailsModel[index]
-                    //                 .images![0].url.toString()
-                    //         )
-                    //     )),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage("http://192.168.1.9:3010/api" +
+                                "/product/images/" +
+                                widget.productDetailsModel[index]
+                                    .images![0].url.toString()
+                            )
+                        )),
                   ),
                   Container(
                     height: mHeight * .1,
@@ -50,11 +51,11 @@ class _FavouritesViewState extends State<FavouritesView> {
                         SizedBox(
                           height: mHeight * .02,
                         ),
-                        Text(""
-                          // widget.productDetailsModel[index]
-                          //     .name!
-                          //     .toString(),maxLines: 1,
-                          // style: TextStyle(fontSize: 14),
+                        Text(
+                           widget.productDetailsModel[index]
+                               .name!
+                               .toString(),maxLines: 1,
+                           style: TextStyle(fontSize: 14),
                         ),
                         RatingBar.builder(
                           itemSize: 20,
@@ -79,12 +80,11 @@ class _FavouritesViewState extends State<FavouritesView> {
                               color: Colors.grey,
                               size: 14,
                             ),
-                            Text(""
-                              // widget.productDetailsModel[index]
-                              //     .price!
-                              //     .toString(),maxLines: 2,
-                              // style:
-                              // TextStyle(color: Colors.grey, fontSize: 14),
+                            Text(
+                               widget.productDetailsModel[index]
+                                   .price!
+                                  .toString(),maxLines: 2, style:
+                               TextStyle(color: Colors.grey, fontSize: 14),
                             )
                           ],
                         ),

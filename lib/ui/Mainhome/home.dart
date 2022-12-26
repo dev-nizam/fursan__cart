@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (ctx) => const ScreenFavourites()));
+                    builder: (ctx) =>  ScreenFavourites()));
           },
           icon: const Icon(Icons.favorite_border),
           color: Colors.black,
