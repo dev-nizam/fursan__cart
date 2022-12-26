@@ -17,7 +17,7 @@ class ApiClient {
 
     final token = prefs.getString('token');
     print(prefs.getString('token'));
-    // print(prefs.getString('token'));
+    print(prefs.getString('token'));
     print("Invoke Api worked");
     print(method);
 

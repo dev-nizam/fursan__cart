@@ -7,6 +7,7 @@ import 'package:fursan_cart/repository/api/authentication/firbase/facebook.dart'
 import 'package:fursan_cart/repository/api/authentication/firbase/googel.dart';
 import 'package:fursan_cart/repository/api/authentication/login.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'signin_event.dart';
 part 'signin_state.dart';
@@ -17,7 +18,9 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
  late SigninModel signinModel;
   ApiLogin apiLogin;
   SigninBloc(this.apiLogin ,this.google,this.facebook) : super(SigninInitial()) {
+
     on<FetchLogin>((event, emit)async {
+      final preference = await SharedPreferences.getInstance();
       // TODO: implement event handler
       print("loading....");
       emit(SigninLoading());
@@ -26,7 +29,8 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
             );
         print("loaded.....");
         //  modelClassToken = await userToken.getLoginFunction();
-        // preference.setString('token', SigninModel!.tokens!.accessToken!);
+        preference.setString('token',signinModel.tokens!.accessToken.toString() );
+        preference.setString('userid',signinModel.user!.id.toString());
         // preference.setString('userId', signinModel!.user!.id.toString());
         //print("OOOOOOOOOO" + modelClassToken!.tokens!.accessToken!);
 

@@ -13,6 +13,7 @@ import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
 import 'package:fursan_cart/ui/widgets/favourites/favouritesView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Mainhome/home.dart';
 import 'ScreenBuyNow.dart';
@@ -28,9 +29,11 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int Quantity = 1;
   int _current = 0;
   bool _hasBeenPressed = false;
+  
   late FavoritesModel favoritesModel;
   @override
   Widget build(BuildContext context) {
+    
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
     return  Scaffold(
@@ -106,20 +109,24 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   },
   child: Container(
                       child: IconButton(
-                          onPressed: () {
-                            print(favoritesModel.productsId.toString());
+                          onPressed: () async{
+                            final preference = await SharedPreferences.getInstance();
+                            // print(favoritesModel.productsId.toString());
 
                             setState(() {
-                              _hasBeenPressed = !_hasBeenPressed;
-                            },);
-                            BlocProvider.of<
-                                FavoritesBloc>(
-                                context)
-                                .add(Fetchfavorites(productid: favoritesModel.productsId.toString(), userid: favoritesModel.userId.toString()));
 
+                              _hasBeenPressed = !_hasBeenPressed;
+
+                            },);
+                            // BlocProvider.of<
+                            //     FavoritesBloc>(
+                            //     context)
+                            //     .add(Fetchfavorites(productid: favoritesModel.productsId.toString(), userid: favoritesModel.userId.toString()));
+                            //
+                            BlocProvider.of<FavoritesBloc>(context).add(Fetchfavorites(productid:widget.productDetailsModel.id, userid:preference.getString("userid") ));
 
                           },
-                          icon:  Icon(Icons.favorite,color: _hasBeenPressed ? Colors.black : Colors.yellowAccent, ),),
+                          icon:  Icon(Icons.favorite,color: _hasBeenPressed ? Colors.yellowAccent : Colors.black, ),),
                     ),
 ),
                   )
