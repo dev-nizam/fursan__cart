@@ -14,8 +14,7 @@ class ScreenFavourites extends StatefulWidget {
 }
 
 class _ScreenFavouritesState extends State<ScreenFavourites> {
-  late List<ProductDetailsModel> productDetailsModel;
-  // late List<ProductDetailsModel>  Tranding;
+
   bool search = true;
   @override
   Widget build(BuildContext context) {
@@ -75,6 +74,6 @@ class _ScreenFavouritesState extends State<ScreenFavourites> {
             ),
           ],
         ),
-        body: FavouritesView(productDetailsModel:productDetailsModel,));
+        body: FavouritesView());
   }
 }

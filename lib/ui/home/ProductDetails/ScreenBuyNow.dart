@@ -88,7 +88,7 @@ class _ScreenBuyNowState extends State<ScreenBuyNow> {
                 width: mWidth * .28,
               ),
               const Text("INR  "),
-              const Text("100.000"),
+               Text(widget.productDetailsModel.price.toString()),
             ],
           ),
           SizedBox(

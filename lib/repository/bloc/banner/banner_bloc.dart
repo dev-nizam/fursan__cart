@@ -14,9 +14,8 @@ class BannerBloc extends Bloc<BannerEvent, BannerState> {
  late List<BannerModel> bannerModel;
  late List<BannerModel> bestOffers;
  late List<BannerModel> bannerimg ;
- ApiBanner apiBanner;
-
-  BannerBloc(this.apiBanner) : super(BannerInitial()) {
+ ApiBanner apiBanner=ApiBanner();
+  BannerBloc() : super(BannerInitial()) {
     on<FetchBanner>((event, emit) async {
       emit(BannerLoading());
       try {

@@ -8,3 +8,5 @@ class Fetchfavorites extends FavoritesEvent {
 
   Fetchfavorites({required this.productid, required this.userid});
 }
+class Fetchfavoritesview extends FavoritesEvent {
+  }

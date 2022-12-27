@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
-import 'package:fursan_cart/model/favorites/FavoritesModel.dart';
+import 'package:fursan_cart/model/favorites/FavoriteModel.dart';
+
 import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
 import 'package:fursan_cart/repository/bloc/favorites/favorites_bloc.dart';
 
@@ -30,7 +31,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int _current = 0;
   bool _hasBeenPressed = false;
   
-  late FavoritesModel favoritesModel;
+  late FavoriteModel favoritesModel;
   @override
   Widget build(BuildContext context) {
     
@@ -105,7 +106,6 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
         child: Text("something went wrong"),
       );
     }
-    // TODO: implement listener
   },
   child: Container(
                       child: IconButton(
@@ -123,10 +123,11 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                             //     context)
                             //     .add(Fetchfavorites(productid: favoritesModel.productsId.toString(), userid: favoritesModel.userId.toString()));
                             //
-                            BlocProvider.of<FavoritesBloc>(context).add(Fetchfavorites(productid:widget.productDetailsModel.id, userid:preference.getString("userid") ));
+                           BlocProvider.of<FavoritesBloc>(context).add(Fetchfavorites(productid:widget.productDetailsModel.id, userid:preference.getString('userid') ));
+
 
                           },
-                          icon:  Icon(Icons.favorite,color: _hasBeenPressed ? Colors.yellowAccent : Colors.black, ),),
+                          icon: _hasBeenPressed ? Icon(Icons.favorite,color:  Colors.black) : Icon(Icons.favorite_border,color:Colors.black, ),),
                     ),
 ),
                   )

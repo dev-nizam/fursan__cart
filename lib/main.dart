@@ -51,7 +51,7 @@ void main() async {
       providers: [
         BlocProvider(create: (BuildContext context)=>SigninBloc(apiLogin,google,facebook)),
         BlocProvider(create: (BuildContext context)=>SignupBloc(apiSignUp)),
-        BlocProvider(create: (context) => BannerBloc(apiBanner)),
+        BlocProvider(create: (context) => BannerBloc()),
         BlocProvider(create: (context) => BrandBloc(apiBrandr)),
         BlocProvider(create: (context) => TrandingBloc(productDetailsApi)),
         BlocProvider(create: (context) => ProductDetailsBloc(bestoffersProductApi)),
