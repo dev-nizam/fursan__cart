@@ -7,6 +7,13 @@ import 'package:fursan_cart/model/favorites/FavoriteModel.dart';
 
 
 import 'package:fursan_cart/repository/bloc/favorites/favorites_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
+import 'package:fursan_cart/ui/home/AppBar/Cart.dart';
+import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
+import 'package:fursan_cart/ui/widgets/favourites/FavouritesProductDetails.dart';
+
+import '../../Mainhome/Category/subcategoryproducts.dart';
+import '../../home/SearchBarhome/SearchPageHome.dart';
 
 class FavouritesView extends StatefulWidget {
   FavouritesView({Key? key,   }) : super(key: key);
@@ -17,7 +24,7 @@ class FavouritesView extends StatefulWidget {
 
 class _FavouritesViewState extends State<FavouritesView> {
 
-late FavoriteModel favoritesModel;
+late List< FavoriteModel >favoritesModel;
   @override
   void initState() {
     // TODO: implement initState
@@ -72,93 +79,154 @@ Widget build(BuildContext context) {
               .favoritesModel;
 
 
-      return ListView.separated(
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (ctx, index) {
-            return GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: mHeight * .205,
-                width: mWidth,
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: mWidth * .05,
-                    ),
-                    Container(
-                      height: mHeight * .17,
-                      width: mWidth * .35,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "http://192.168.1.9:3010/api" +
-                                      "/product/images/" +
-                                      favoritesModel.product!.images![0].url.toString()
-                              )
-                          )),
-                    ),
-                    Container(
-                      height: mHeight * .1,
-                      width: mWidth * .5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: mHeight * .02,
-                          ),
-                          Text(
-                            favoritesModel.product!.name!.toString()
-                            , maxLines: 1,
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          RatingBar.builder(
-                            itemSize: 20,
-                            initialRating: 3,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) =>
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.currency_rupee_rounded,
-                                color: Colors.grey,
-                                size: 14,
-                              ),
-                              Text(
-                                favoritesModel.product!
-                                    .price!
-                                    .toString(), maxLines: 2, style:
-                              TextStyle(color: Colors.grey, fontSize: 14),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Icon(Icons.favorite, color: Colors.orange, size: 19),
-                  ],
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leadingWidth: 0,
+          title: search
+              ? const Text(
+            "Favourites",
+            style: TextStyle(color: Colors.black),
+          )
+              : GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                      builder: (context) => const SearchPageHome()));
+            },
+            child: SizedBox(
+              height: mHeight * .045,
+              width: mWidth * .8,
+              child: TextField(
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: mHeight * .01),
+                  filled: true,
+                  enabled: false,
+                  fillColor: Colors.grey.withOpacity(.2),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.white, width: 2.0),
+                      borderRadius: BorderRadius.circular(15)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Colors.white, width: 2.0),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  hintText: "Search",
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  prefixIcon: const Icon(Icons.search),
                 ),
               ),
-            );
-          },
-          separatorBuilder: (ctx, index) {
-            return Divider(
-              thickness: 1,
-            );
-          },
-          itemCount: Price.length);
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  search = !search;
+                });
+              },
+              icon:
+              search ? const Icon(Icons.search) : const Icon(Icons.close),
+              color: Colors.black,
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const Cart()));
+              },
+              icon: const Icon(Icons.shopping_cart_outlined),
+              color: Colors.black,
+            ),
+          ],
+        ),
+        body: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (ctx, index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => FavouritesProductDetails(
+                            productssId: favoritesModel[index]
+                                .productsId
+                                .toString(),
+                          )));
+                },
+                child: Container(
+                  height: mHeight * .205,
+                  width: mWidth,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: mWidth * .05,
+                      ),
+                      Container(
+                        height: mHeight * .1,
+                        width: mWidth * .35,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "http://fursancart.rootsys.in/api" +
+                                        "/product/images/" +
+                                        favoritesModel[index]
+                                            .product!
+                                            .images![0]
+                                            .url
+                                            .toString()))),
+                      ),
+                      SizedBox(
+                        height: mHeight * .2,
+                        width: mWidth * .5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: mHeight * .02,
+                            ),
+                            Text(
+                              favoritesModel[index].product!.name.toString(),
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            WidgetStar(),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.currency_rupee_rounded,
+                                  color: Colors.grey,
+                                  size: 14,
+                                ),
+                                Text(
+                                  favoritesModel[index]
+                                      .product!
+                                      .price
+                                      .toString(),
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+            separatorBuilder: (ctx, index) {
+              return const Divider(
+                thickness: 1,
+              );
+            },
+            itemCount: favoritesModel.length),
+      );
+
     }
     return Center(
     child: Text("no response"),

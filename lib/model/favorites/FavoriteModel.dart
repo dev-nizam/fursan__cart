@@ -22,6 +22,11 @@ class FavoriteModel {
   String? productsId;
   Product? product;
 
+  static List<FavoriteModel> listFromJson(List<dynamic> json) {
+    return json == null
+        ? []
+        : json.map((value) => FavoriteModel.fromJson(value)).toList();
+  }
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;

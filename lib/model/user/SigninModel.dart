@@ -1,20 +1,59 @@
 class SigninModel {
   SigninModel({
       this.tokens, 
-      this.user,});
+      this.userAuth,});
 
   SigninModel.fromJson(dynamic json) {
     tokens = json['tokens'] != null ? Tokens.fromJson(json['tokens']) : null;
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    userAuth = json['userAuth'] != null ? UserAuth.fromJson(json['userAuth']) : null;
   }
   Tokens? tokens;
-  User? user;
+  UserAuth? userAuth;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (tokens != null) {
       map['tokens'] = tokens?.toJson();
     }
+    if (userAuth != null) {
+      map['userAuth'] = userAuth?.toJson();
+    }
+    return map;
+  }
+
+}
+
+class UserAuth {
+  UserAuth({
+      this.id, 
+      this.email, 
+      this.role, 
+      this.username, 
+      this.blocked, 
+      this.user,});
+
+  UserAuth.fromJson(dynamic json) {
+    id = json['id'];
+    email = json['email'];
+    role = json['role'];
+    username = json['username'];
+    blocked = json['blocked'];
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
+  }
+  String? id;
+  String? email;
+  int? role;
+  String? username;
+  bool? blocked;
+  User? user;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['email'] = email;
+    map['role'] = role;
+    map['username'] = username;
+    map['blocked'] = blocked;
     if (user != null) {
       map['user'] = user?.toJson();
     }
@@ -25,52 +64,16 @@ class SigninModel {
 
 class User {
   User({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.username, 
-      this.email, 
-      this.phone, 
-      this.role, 
-      this.blocked, 
-      this.refreshToken, 
-      this.referralCode,});
+      this.id,});
 
   User.fromJson(dynamic json) {
     id = json['id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    username = json['username'];
-    email = json['email'];
-    phone = json['phone'];
-    role = json['role'];
-    blocked = json['blocked'];
-    refreshToken = json['refreshToken'];
-    referralCode = json['referralCode'];
   }
   String? id;
-  String? createdAt;
-  String? updatedAt;
-  String? username;
-  String? email;
-  dynamic phone;
-  int? role;
-  bool? blocked;
-  dynamic refreshToken;
-  String? referralCode;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['username'] = username;
-    map['email'] = email;
-    map['phone'] = phone;
-    map['role'] = role;
-    map['blocked'] = blocked;
-    map['refreshToken'] = refreshToken;
-    map['referralCode'] = referralCode;
     return map;
   }
 

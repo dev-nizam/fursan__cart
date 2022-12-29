@@ -6,6 +6,7 @@ import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/favorites/FavoriteModel.dart';
+import 'package:fursan_cart/model/favorites/FavoritesModelId.dart';
 
 import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
 import 'package:fursan_cart/repository/bloc/favorites/favorites_bloc.dart';
@@ -31,7 +32,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int _current = 0;
   bool _hasBeenPressed = false;
   
-  late FavoriteModel favoritesModel;
+  late FavoritesModelId  favoritesModelId;
   @override
   Widget build(BuildContext context) {
     
@@ -88,48 +89,24 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                   ),
                   Positioned(
                     left: mWidth * .8,
-                    child: BlocListener<FavoritesBloc, FavoritesState>(
-  listener: (context, state) {
-    if (state is FavoriteLoading) {
-      const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-    if (state is FavoriteLoaded) {
-      // BlocProvider.of<ProductBloc>(context)
-      //     .add(FetchProduct(subId: widget.id));
-      favoritesModel =
-          BlocProvider.of<FavoritesBloc>(context).favoritesModel;
-    }
-    if (state is FavoriteError) {
-      const Center(
-        child: Text("something went wrong"),
-      );
-    }
-  },
-  child: Container(
-                      child: IconButton(
-                          onPressed: () async{
-                            final preference = await SharedPreferences.getInstance();
-                            // print(favoritesModel.productsId.toString());
+                    child: Container(
+                                        child: IconButton(
+                                            onPressed: () async{
+                                              final preference = await SharedPreferences.getInstance();
+                                              // print(favoritesModel.productsId.toString());
 
-                            setState(() {
+                                              setState(() {
 
-                              _hasBeenPressed = !_hasBeenPressed;
+                                                _hasBeenPressed = !_hasBeenPressed;
 
-                            },);
-                            // BlocProvider.of<
-                            //     FavoritesBloc>(
-                            //     context)
-                            //     .add(Fetchfavorites(productid: favoritesModel.productsId.toString(), userid: favoritesModel.userId.toString()));
-                            //
-                           BlocProvider.of<FavoritesBloc>(context).add(Fetchfavorites(productid:widget.productDetailsModel.id, userid:preference.getString('userid') ));
+                                              },);
+
+                                             BlocProvider.of<FavoritesBloc>(context).add(Fetchfavorites(widget.productDetailsModel.id.toString()));
 
 
-                          },
-                          icon: _hasBeenPressed ? Icon(Icons.favorite,color:  Colors.black) : Icon(Icons.favorite_border,color:Colors.black, ),),
-                    ),
-),
+                                            },
+                                            icon: _hasBeenPressed ? Icon(Icons.favorite,color:  Colors.black) : Icon(Icons.favorite_border,color:Colors.black, ),),
+                                      ),
                   )
                 ],
               ),

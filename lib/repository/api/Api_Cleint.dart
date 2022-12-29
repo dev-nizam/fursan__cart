@@ -13,6 +13,7 @@ class ApiClient {
       {required String path,
       required String method,
       required Object? body}) async {
+    print(body);
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final token = prefs.getString('token');
@@ -20,6 +21,7 @@ class ApiClient {
     print(prefs.getString('token'));
     print("Invoke Api worked");
     print(method);
+    print(token);
 
     Map<String, String> headerParams = {};
     if (method == 'POST' || method == 'GET' || method == 'PATCH') {
@@ -27,11 +29,11 @@ class ApiClient {
       headerParams = {
         "authorization": "Bearer $token",
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/json'
       };
     }
     Response response;
-
+print(headerParams);
     String url = basePath + path;
     // String searchurl =  basePath + 'search/movie'+'?api_key=$token'+ path;
     print('========================================' + url);
@@ -41,7 +43,7 @@ class ApiClient {
 
     switch (method) {
       case "POST":
-        response = await post(Uri.parse(url), headers: {}, body: body);
+        response = await post(Uri.parse(url), headers: headerParams, body: body);
         break;
       case "PUT":
         response = await put(Uri.parse(url),
