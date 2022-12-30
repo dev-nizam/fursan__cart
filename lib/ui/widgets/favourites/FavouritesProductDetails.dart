@@ -2,9 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
-import 'package:fursan_cart/model/favorites/FavoriteModel.dart';
+
 import 'package:fursan_cart/repository/bloc/favorites/favorites_bloc.dart';
-import 'package:fursan_cart/ui/home/ProductDetails/ScreenBuyNow.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
+
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/widgets/WidgetCounting.dart';
 import 'package:fursan_cart/ui/widgets/WidgetStar.dart';
@@ -30,8 +31,9 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
 
     super.initState();
   }
-  late List<FavoriteModel> favoriteModel;
-  late ProductDetailsModel productDetailsModel;
+
+
+   ProductDetailsModel? productDetailsModel;
 
   int Quantity = 1;
   int _current = 0;
@@ -58,11 +60,12 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
       if (state is FavoriteLoaded) {
         print("FavouritesProductDetails state loaded.......");
 
-        favoriteModel =
-            BlocProvider.of<FavoritesBloc>(context).favoritesModel;
-        return Scaffold(
+        productDetailsModel =
+            BlocProvider.of<FavoritesBloc>(context).productDetailsModel;
+
+        return  Scaffold(
           backgroundColor: Colors.white,
-          body: ListView(
+          body:productDetailsModel!=null? ListView(
             physics: const BouncingScrollPhysics(),
             children: [
               Column(
@@ -92,7 +95,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                                   _current = index;
                                 });
                               }),
-                          itemCount: productDetailsModel.images!.length,
+                          itemCount: productDetailsModel!.images!.length,
                           itemBuilder: (BuildContext context, int index,
                                   int pageViewIndex) =>
                               Container(
@@ -101,9 +104,9 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                      "http://fursancart.rootsys.in/api" +
+                                      mainApi +
                                           "/product/images/" +
-                                          productDetailsModel.images![index].url
+                                          productDetailsModel!.images![index].url
                                               .toString(),
                                     ),
                                     fit: BoxFit.contain)),
@@ -119,8 +122,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                                   pressed = !pressed;
                                   BlocProvider.of<FavoritesBloc>(context).add(
                                       FetchFavouritesProductDetails(
-                                          productDetailsModel.id.toString()));
-
+                                          productDetailsModel!.id.toString()));
                                 },
                                 icon: pressed
                                     ? const Icon(Icons.favorite_border)
@@ -136,7 +138,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                   ),
                   AnimatedSmoothIndicator(
                     activeIndex: _current,
-                    count: productDetailsModel.images!.length,
+                    count: productDetailsModel!.images!.length,
                     effect: const JumpingDotEffect(
                       dotColor: Colors.grey,
                       activeDotColor: Colors.black,
@@ -158,7 +160,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                             height: mHeight * .06,
                             width: mWidth * .61,
                             child: Text(
-          productDetailsModel.name.toString(),
+                              productDetailsModel!.name.toString(),
                               style: const TextStyle(fontSize: 20),
                             ),
                           ),
@@ -180,7 +182,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                                 color: Colors.grey),
                           ),
                           Text(
-          productDetailsModel.price.toString(),
+                            productDetailsModel!.price.toString(),
                             style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -216,7 +218,8 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                               Row(
                                 children: [
                                   Text(
-          productDetailsModel.discPerQtt![index].qttFrom
+                                    productDetailsModel!
+                                        .discPerQtt![index].qttFrom
                                         .toString(),
                                     style: const TextStyle(fontSize: 15),
                                   ),
@@ -225,7 +228,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                                     style: TextStyle(fontSize: 12),
                                   ),
                                   Text(
-                                  productDetailsModel.discPerQtt![index].qttTo
+                                    productDetailsModel!.discPerQtt![index].qttTo
                                         .toString(),
                                     style: const TextStyle(fontSize: 15),
                                   ),
@@ -250,7 +253,8 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                                     width: mWidth * .012,
                                   ),
                                   Text(
-          productDetailsModel.discPerQtt![index].discFlatAmnt
+                                    productDetailsModel!
+                                        .discPerQtt![index].discFlatAmnt
                                         .toString(),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -357,7 +361,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(productDetailsModel.description.toString()),
+                        Text(productDetailsModel!.description.toString()),
                       ],
                     ),
                   ),
@@ -421,7 +425,7 @@ class _FavouritesProductDetailsState extends State<FavouritesProductDetails> {
                 ],
               )
             ],
-          ),
+          ):Container()
         );
       }
       return const Center(

@@ -35,13 +35,13 @@ print(productid);
     await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     return FavoriteModel.listFromJson(json.decode(response.body));
   }
-  Future<List< ProductDetailsModel>> getFavouritesProductDetails(String productssId) async {
+  Future< ProductDetailsModel> getFavouritesProductDetails(String productssId) async {
     print("FavouritesProductDetails Api working");
     String basePath = "/product/$productssId";
     Response response =
     await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     print(response.body);
-    return ProductDetailsModel.listFromJson(json.decode(response.body));
+    return ProductDetailsModel.fromJson(jsonDecode(response.body));
   }
 }
 

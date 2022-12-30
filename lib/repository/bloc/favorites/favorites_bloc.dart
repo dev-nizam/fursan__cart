@@ -15,7 +15,7 @@ part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   late List<FavoriteModel> favoritesModel;
-  late List<ProductDetailsModel> productDetailsModel;
+  ProductDetailsModel? productDetailsModel;
   late FavoritesModelId favoritesModelId;
   ApiFavorites apiFavorites;
   FavoritesBloc(this.apiFavorites) : super(FavoritesInitial()) {
