@@ -24,7 +24,7 @@ class FavouritesView extends StatefulWidget {
 
 class _FavouritesViewState extends State<FavouritesView> {
 
-late List< FavoriteModel >favoritesModel;
+late List< FavoriteModel >?favoritesModel;
   @override
   void initState() {
     // TODO: implement initState
@@ -153,7 +153,7 @@ Widget build(BuildContext context) {
                       context,
                       MaterialPageRoute(
                           builder: (ctx) => FavouritesProductDetails(
-                            productssId: favoritesModel[index]
+                            productssId: favoritesModel![index]
                                 .productsId
                                 .toString(),
                           )));
@@ -172,9 +172,9 @@ Widget build(BuildContext context) {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "http://fursancart.rootsys.in/api" +
+                                    mainApi +
                                         "/product/images/" +
-                                        favoritesModel[index]
+                                        favoritesModel![index]
                                             .product!
                                             .images![0]
                                             .url
@@ -190,7 +190,7 @@ Widget build(BuildContext context) {
                               height: mHeight * .02,
                             ),
                             Text(
-                              favoritesModel[index].product!.name.toString(),
+                              favoritesModel![index].product!.name.toString(),
                               style: const TextStyle(fontSize: 14),
                             ),
                             WidgetStar(),
@@ -202,7 +202,7 @@ Widget build(BuildContext context) {
                                   size: 14,
                                 ),
                                 Text(
-                                  favoritesModel[index]
+                                  favoritesModel![index]
                                       .product!
                                       .price
                                       .toString(),
@@ -224,7 +224,7 @@ Widget build(BuildContext context) {
                 thickness: 1,
               );
             },
-            itemCount: favoritesModel.length),
+            itemCount: favoritesModel!.length),
       );
 
     }

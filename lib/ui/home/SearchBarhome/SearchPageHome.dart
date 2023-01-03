@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/search/SearchModel.dart';
 import 'package:fursan_cart/repository/bloc/search/search_bloc.dart';
+import 'package:fursan_cart/ui/Mainhome/home.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenProductdetails.dart';
 
 
@@ -87,13 +88,13 @@ class _SearchPageHomeState extends State<SearchPageHome> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => ScreenProductDetails(productDetailsModel:productDetailsModel[index])));
+                                  builder: (ctx) => ScreenProductDetails(productDetailsModel:productDetailsModel![index])));
                             },
                             child: Card(
                                 child: ListTile(
                               leading: CircleAvatar(
                                   child: Image.network(
-                                      "http://192.168.1.9:3010/api" +
+                                      mainApi +
                                           "/product/images/" +
                                           searchModel[index].url!.toString())),
                               title: Text(searchModel[index].name.toString()),

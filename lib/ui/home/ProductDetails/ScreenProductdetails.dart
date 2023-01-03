@@ -79,7 +79,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        "http://fursancart.rootsys.in/api" +
+                                        mainApi +
                                             "/product/images/" +
                                             widget.productDetailsModel.images![index].url
                                                 .toString()),
@@ -268,7 +268,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (ctx) => const ScreenCart()));
+                              builder: (ctx) =>  ScreenCart()));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

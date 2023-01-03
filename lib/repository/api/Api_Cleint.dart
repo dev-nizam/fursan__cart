@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
   static final String basePath =
-      "http://fursancart.rootsys.in/api";
+      "http://192.168.1.9:3010/api";
   // "192.168.1.9:310/api";
   // String tokenn =
   //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGJuaXQzZ28wMDAwenIwYWVmdG1xMTc5IiwiZW1haWwiOiJzZXZtcGlvQGdtYWlsLmNvbXR5YyIsImlhdCI6MTY3MTYxMjU3NSwiZXhwIjoxNjcyMjE3Mzc1fQ.YlCjUTZ58EiR5OOY5xrVH8eFcYcMz2LjQ-JlUN74kBs";
