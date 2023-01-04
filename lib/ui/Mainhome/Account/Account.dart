@@ -21,7 +21,10 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> {
   late ProfileModel profileModel;
   bool visible=false;
-
+  final formkey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -255,102 +258,142 @@ class _AccountState extends State<Account> {
                     fontSize: 18),),
 
               ),visible?
-             Column(
-               children: [
-                 SizedBox(
-                   height: mHeight * .05,
-                 ),
-                 Row(
-                   children: [
-                     SizedBox(
-                       width: mWidth * .075,
-                     ),
-                     Text(
-                       "UserName",
-                       style: TextStyle(color: Colors.grey),
-                     ),
-                   ],
-                 ),
-                 Container(
-                   width: mWidth * .85,
-                   height: mHeight * .04,
-                   child: const TextField(
-                     decoration: InputDecoration(
-                         suffixIcon: Padding(
-                           padding: EdgeInsets.only(top: 8),
-                           child: Text(
-                             "Update",
-                             style: TextStyle(
-                               color: Colors.orange,
+             Form(
+               key:formkey ,
+               child: Column(
+                 children: [
+                   SizedBox(
+                     height: mHeight * .05,
+                   ),
+                   Row(
+                     children: [
+                       SizedBox(
+                         width: mWidth * .075,
+                       ),
+                       Text(
+                         "UserName",
+                         style: TextStyle(color: Colors.grey),
+                       ),
+                     ],
+                   ),
+                   Container(
+                     width: mWidth * .85,
+                     height: mHeight * .04,
+                     child:  TextFormField(
+                       controller: nameController,
+                       validator: (value) {
+                         if (value == null || value.isEmpty) {
+                           return "user Name";
+                         } else {
+                           return null;
+                         }
+                       },
+                       decoration: InputDecoration(
+                           suffixIcon: Padding(
+                             padding: EdgeInsets.only(top: 8),
+                             child: TextButton(onPressed: (){
+                               loginBtn();
+                               print("hi btn clicked");
+                             },child: Text("Update",
+                               style: TextStyle(
+                                 color: Colors.orange,
+                               ),),
+
                              ),
-                           ),
-                         )),
+                           )),
+                     ),
                    ),
-                 ),
-                 SizedBox(
-                   height: mHeight * .05,
-                 ),
-                 Row(
-                   children: [
-                     SizedBox(
-                       width: mWidth * .075,
-                     ),
-                      Text(
-                       "Mobile Number",
-                       style: TextStyle(color: Colors.grey),
-                     ),
-                   ],
-                 ),
-                 Container(
-                   width: mWidth * .85,
-                   height: mHeight * .04,
-                   child: const TextField(
-                     decoration: InputDecoration(
-                         suffixIcon: Padding(
-                       padding: EdgeInsets.only(top: 8),
-                       child: Text(
-                         "Update",
-                         style: TextStyle(
-                           color: Colors.orange,
-                         ),
+                   SizedBox(
+                     height: mHeight * .05,
+                   ),
+                   Row(
+                     children: [
+                       SizedBox(
+                         width: mWidth * .075,
                        ),
-                     )),
-                   ),
-                 ),
-                 SizedBox(
-                   height: mHeight * .03,
-                 ),
-                 Row(
-                   children: [
-                     SizedBox(
-                       width: mWidth * .075,
-                     ),
-                     const Text(
-                       "Email",
-                       style: TextStyle(color: Colors.grey),
-                     ),
-                   ],
-                 ),
-                 Container(
-                   width: mWidth * .85,
-                   height: mHeight * .04,
-                   child: const TextField(
-                     decoration: InputDecoration(
-                         suffixIcon: Padding(
-                       padding: EdgeInsets.only(top: 8),
-                       child: Text(
-                         "Update",
-                         style: TextStyle(
-                           color: Colors.orange,
-                         ),
+                        Text(
+                         "Mobile Number",
+                         style: TextStyle(color: Colors.grey),
                        ),
-                     )),
+                     ],
                    ),
-                 ),
-                 SizedBox(
-                   height: mHeight * .03,
-                 ),
-               ],
+                   Container(
+                     width: mWidth * .85,
+                     height: mHeight * .04,
+                     child:  TextFormField(
+                       controller: mobileController,
+                       validator: (value) {
+                         if (value == null || value.isEmpty) {
+                           return "Mobile Number";
+                         } else if (value.length < 9) {
+                           return "number should be atleast 10 charecters";
+                         } else {
+                           return null;
+                         }
+                       },
+                       decoration: InputDecoration(
+                           suffixIcon: Padding(
+                         padding: EdgeInsets.only(top: 8),
+                         child: TextButton(onPressed: (){
+                           loginBtn();
+                           print("hi btn clicked");
+                         },child: Text("Update",
+                           style: TextStyle(
+                             color: Colors.orange,
+                           ),),
+
+                         ),
+                       )),
+                     ),
+                   ),
+                   SizedBox(
+                     height: mHeight * .03,
+                   ),
+                   Row(
+                     children: [
+                       SizedBox(
+                         width: mWidth * .075,
+                       ),
+                       const Text(
+                         "Email",
+                         style: TextStyle(color: Colors.grey),
+                       ),
+                     ],
+                   ),
+                   Container(
+                     width: mWidth * .85,
+                     height: mHeight * .04,
+                     child:  TextFormField(
+                         controller:emailController,
+                       validator: (value) {
+                         if (value == null || value.isEmpty) {
+                           return "email is required";
+                         } else if (value.length <= 100 ||
+                             !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                 .hasMatch(value)) {
+                           return "Not a valid email";
+                         }
+                       },
+                       decoration: InputDecoration(
+                           suffixIcon: Padding(
+                         padding: EdgeInsets.only(top: 8),
+                         child: TextButton(onPressed: (){
+                           loginBtn();
+                           print("hi btn clicked");
+                         },child: Text("Update",
+                           style: TextStyle(
+                             color: Colors.orange,
+                           ),),
+
+                         ),
+                       )),
+                     ),
+                   ),
+                   SizedBox(
+                     height: mHeight * .03,
+                   ),
+                 ],
+               ),
              ):Container(),
               Row(
                 children: [
@@ -404,10 +447,21 @@ class _AccountState extends State<Account> {
   },
 );
   }
-  Future<void>id() async {
-
-  final preferances = await SharedPreferences.getInstance();
-  preferances.getString("id");
-  // preferances.setString("userid", userid);
-}
+//   Future<void>id() async {
+//
+//   final preferances = await SharedPreferences.getInstance();
+//   preferances.getString("id");
+//   // preferances.setString("userid", userid);
+// }
+  loginBtn() {
+    if (formkey.currentState!.validate()) {
+      return BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
+          userName: nameController.value.text,
+          MobileNumber: mobileController.value.text,
+          Email: emailController.value.text,
+          ));
+    } else {
+      return print("not valid details...");
+    }
+  }
 }

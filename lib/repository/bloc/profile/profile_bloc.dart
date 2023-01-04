@@ -30,7 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(ProfileLoading());
       try {
         profileModel =
-        await apiProfile.getProfileEdit(event.id);
+        await apiProfile.getProfileEdit(userName: event.userName, MobileNumber:event.MobileNumber, Email: event.Email);
         emit(ProfileLoaded());
       } catch (e) {
         print(">>>>>>>>>>>>>>>>>$e>>>>>>>>");

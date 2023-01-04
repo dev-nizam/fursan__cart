@@ -19,7 +19,7 @@ class ApiProfile {
 
     return ProfileModel.fromJson(jsonDecode(response.body));
   }
-  Future <ProfileModel> getProfileEdit(String id) async {
+  Future <ProfileModel> getProfileEdit( {required String userName,required String MobileNumber,required String Email}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id= prefs.getString("id")!;
     String basePath = "/user/update/$id";
