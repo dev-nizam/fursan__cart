@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fursan_cart/model/profile/ProfileModel.dart';
+import 'package:fursan_cart/repository/bloc/profile/profile_bloc.dart';
 import 'package:fursan_cart/ui/Mainhome/Order/Order.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenDeliveryAddress.dart';
@@ -16,11 +19,59 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  late ProfileModel profileModel;
+  bool visible=false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    BlocProvider.of<ProfileBloc>(context).add(FatchProfile(id: 'id'));
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
+    return BlocBuilder<ProfileBloc, ProfileState>(
+  builder: (context, state) {
+      if (state is ProfileLoading) {
+        print("State.........");
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      if (state is ProfileError) {
+        return
+          // RefreshIndicator(
+          // onRefresh: () async {
+          //   return BlocProvider.of<ProfileBloc>(context)
+          //       .add(FatchProfile(id: id));
+          // },
+          // child:
+    SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Container(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * .9,
+              // color: Colors.red,
+              child: const Center(
+                child: Text("something went wrong"),
+              ),
+            ),
+          );
+        // );
+      }
+      if (state is ProfileLoaded) {
+        print("state loaded.......");
+
+        profileModel=
+            BlocProvider.of<ProfileBloc>(context).profileModel;
+
+        return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,9 +88,9 @@ class _AccountState extends State<Account> {
         children: [
           Column(
             children: [
-              const Center(
+              Center(
                 child: Text(
-                  "Shameem C",
+                  profileModel.user!.name.toString(),
                   style: TextStyle(fontSize: 25),
                 ),
               ),
@@ -150,58 +201,6 @@ class _AccountState extends State<Account> {
                     width: mWidth * .075,
                   ),
                   const Text(
-                    "First Name",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-              Container(
-                width: mWidth * .85,
-                height: mHeight * .04,
-                child: const TextField(
-                  decoration: InputDecoration(),
-                ),
-              ),
-              SizedBox(
-                height: mHeight * .03,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: mWidth * .075,
-                  ),
-                  const Text(
-                    "Last Name",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-              Container(
-                width: mWidth * .85,
-                height: mHeight * .04,
-                child: const TextField(
-                  decoration: InputDecoration(),
-                ),
-              ),
-              SizedBox(
-                height: mHeight * .02,
-              ),
-              const Text(
-                "SUBMIT",
-                style: TextStyle(
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
-              SizedBox(
-                height: mHeight * .05,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: mWidth * .075,
-                  ),
-                  const Text(
                     "Mobile Number",
                     style: TextStyle(color: Colors.grey),
                   ),
@@ -210,17 +209,11 @@ class _AccountState extends State<Account> {
               Container(
                 width: mWidth * .85,
                 height: mHeight * .04,
-                child: const TextField(
+                child:  TextField(
+                  enabled: false,
                   decoration: InputDecoration(
-                      suffixIcon: Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Text(
-                      "Update",
-                      style: TextStyle(
-                        color: Colors.orange,
-                      ),
-                    ),
-                  )),
+                    hintText: profileModel.phone.toString(),
+                  ),
                 ),
               ),
               SizedBox(
@@ -240,22 +233,125 @@ class _AccountState extends State<Account> {
               Container(
                 width: mWidth * .85,
                 height: mHeight * .04,
-                child: const TextField(
+                child:
+                TextField(
+                  enabled: false,
                   decoration: InputDecoration(
-                      suffixIcon: Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Text(
-                      "Update",
-                      style: TextStyle(
-                        color: Colors.orange,
-                      ),
-                    ),
-                  )),
+                    hintText: profileModel.email.toString(),
+                  ),
                 ),
               ),
               SizedBox(
-                height: mHeight * .03,
+                height: mHeight * .02,
               ),
+              TextButton(onPressed:() {
+                setState(() {
+                  visible=!visible;
+                });
+              },child: Text("EDIT",
+                style: TextStyle(
+                    color: Colors.orange,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),),
+
+              ),visible?
+             Column(
+               children: [
+                 SizedBox(
+                   height: mHeight * .05,
+                 ),
+                 Row(
+                   children: [
+                     SizedBox(
+                       width: mWidth * .075,
+                     ),
+                     Text(
+                       "UserName",
+                       style: TextStyle(color: Colors.grey),
+                     ),
+                   ],
+                 ),
+                 Container(
+                   width: mWidth * .85,
+                   height: mHeight * .04,
+                   child: const TextField(
+                     decoration: InputDecoration(
+                         suffixIcon: Padding(
+                           padding: EdgeInsets.only(top: 8),
+                           child: Text(
+                             "Update",
+                             style: TextStyle(
+                               color: Colors.orange,
+                             ),
+                           ),
+                         )),
+                   ),
+                 ),
+                 SizedBox(
+                   height: mHeight * .05,
+                 ),
+                 Row(
+                   children: [
+                     SizedBox(
+                       width: mWidth * .075,
+                     ),
+                      Text(
+                       "Mobile Number",
+                       style: TextStyle(color: Colors.grey),
+                     ),
+                   ],
+                 ),
+                 Container(
+                   width: mWidth * .85,
+                   height: mHeight * .04,
+                   child: const TextField(
+                     decoration: InputDecoration(
+                         suffixIcon: Padding(
+                       padding: EdgeInsets.only(top: 8),
+                       child: Text(
+                         "Update",
+                         style: TextStyle(
+                           color: Colors.orange,
+                         ),
+                       ),
+                     )),
+                   ),
+                 ),
+                 SizedBox(
+                   height: mHeight * .03,
+                 ),
+                 Row(
+                   children: [
+                     SizedBox(
+                       width: mWidth * .075,
+                     ),
+                     const Text(
+                       "Email",
+                       style: TextStyle(color: Colors.grey),
+                     ),
+                   ],
+                 ),
+                 Container(
+                   width: mWidth * .85,
+                   height: mHeight * .04,
+                   child: const TextField(
+                     decoration: InputDecoration(
+                         suffixIcon: Padding(
+                       padding: EdgeInsets.only(top: 8),
+                       child: Text(
+                         "Update",
+                         style: TextStyle(
+                           color: Colors.orange,
+                         ),
+                       ),
+                     )),
+                   ),
+                 ),
+                 SizedBox(
+                   height: mHeight * .03,
+                 ),
+               ],
+             ):Container(),
               Row(
                 children: [
                   SizedBox(
@@ -301,5 +397,17 @@ class _AccountState extends State<Account> {
         ],
       ),
     );
+      }
+      return Center(
+        child: Text("no response"),
+      );
+  },
+);
   }
+  Future<void>id() async {
+
+  final preferances = await SharedPreferences.getInstance();
+  preferances.getString("id");
+  // preferances.setString("userid", userid);
+}
 }

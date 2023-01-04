@@ -43,5 +43,6 @@ print(productid);
     print(response.body);
     return ProductDetailsModel.fromJson(jsonDecode(response.body));
   }
+
 }
 

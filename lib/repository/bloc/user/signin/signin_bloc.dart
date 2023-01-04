@@ -35,6 +35,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         //print("OOOOOOOOOO" + modelClassToken!.tokens!.accessToken!);
         preference.setString('userId',signinModel.userAuth!.user!.id!);
         print(signinModel.userAuth!.user!.id!);
+        preference.setString('id',signinModel.userAuth!.id!);
         emit(SigninLoaded(data:SigninModel()));
 
 
@@ -52,6 +53,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         preference.setString('token',signinModel.tokens!.accessToken.toString() );
         // preference.setString('userid',signinModel.user!.id.toString());
         preference.setString('userId',signinModel.userAuth!.user!.id!);
+        preference.setString('id',signinModel.userAuth!.id!);
         emit(SigninLoaded(data:SigninModel()));
 
       } catch (e) {
@@ -70,6 +72,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         preference.setString('token',signinModel.tokens!.accessToken.toString() );
         // preference.setString('userid',signinModel.user!.id.toString());
         preference.setString('userId',signinModel.userAuth!.user!.id!);
+        preference.setString('id',signinModel.userAuth!.id!);
         emit(SigninLoaded(data:SigninModel()));
 
         print("google loaded");

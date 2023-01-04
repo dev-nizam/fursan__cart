@@ -29,7 +29,8 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
 
         // TODO: implement event handler
       }
-      );on<FatchBrandProduct>((event, emit) async {
+      );
+      on<FatchBrandProduct>((event, emit) async {
         emit(ProductDetailsLoading());
         try {
           productDetailsModel =
