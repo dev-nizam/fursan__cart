@@ -7,8 +7,8 @@ class FatchProfile extends ProfileEvent {
   FatchProfile({required this.id});
 }
 class FatchProfileEdit extends ProfileEvent {
-  String userName;
-  String MobileNumber;
-  String Email;
-  FatchProfileEdit({required this.userName,required this.MobileNumber,required this.Email,});
+  String username;
+  String phone;
+  String email;
+  FatchProfileEdit({required this.username,required this.phone,required this.email,});
 }

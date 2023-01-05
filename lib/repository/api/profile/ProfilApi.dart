@@ -19,14 +19,19 @@ class ApiProfile {
 
     return ProfileModel.fromJson(jsonDecode(response.body));
   }
-  Future <ProfileModel> getProfileEdit( {required String userName,required String MobileNumber,required String Email}) async {
+  Future <ProfileModel> getProfileEdit( {required String username,required String phone,required String email}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id= prefs.getString("id")!;
     String basePath = "/user/update/$id";
 
+    Map body = {
+      "username": username,
+      "email": email,
+      "phone": phone,
+    };
     print("api worcking>>>>>");
     Response response = await apiClient.invokeAPI(
-        path: basePath, method: "PUT", body: null);
+        path: basePath, method: "PATCH", body:body);
 
     return ProfileModel.fromJson(jsonDecode(response.body));
   }

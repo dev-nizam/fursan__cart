@@ -292,7 +292,12 @@ class _AccountState extends State<Account> {
                            suffixIcon: Padding(
                              padding: EdgeInsets.only(top: 8),
                              child: TextButton(onPressed: (){
-                               loginBtn();
+                               // loginBtn();
+                               BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
+                                 username: nameController.value.text,
+                                 phone: mobileController.value.text,
+                                 email: emailController.value.text,
+                               ));
                                print("hi btn clicked");
                              },child: Text("Update",
                                style: TextStyle(
@@ -335,7 +340,12 @@ class _AccountState extends State<Account> {
                            suffixIcon: Padding(
                          padding: EdgeInsets.only(top: 8),
                          child: TextButton(onPressed: (){
-                           loginBtn();
+                           // loginBtn();
+                           BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
+                             username: nameController.value.text,
+                             phone: mobileController.value.text,
+                             email: emailController.value.text,
+                           ));
                            print("hi btn clicked");
                          },child: Text("Update",
                            style: TextStyle(
@@ -378,7 +388,12 @@ class _AccountState extends State<Account> {
                            suffixIcon: Padding(
                          padding: EdgeInsets.only(top: 8),
                          child: TextButton(onPressed: (){
-                           loginBtn();
+                           // loginBtn();
+                           BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
+                             username: nameController.value.text,
+                             phone: mobileController.value.text,
+                             email: emailController.value.text,
+                           ));
                            print("hi btn clicked");
                          },child: Text("Update",
                            style: TextStyle(
@@ -453,15 +468,15 @@ class _AccountState extends State<Account> {
 //   preferances.getString("id");
 //   // preferances.setString("userid", userid);
 // }
-  loginBtn() {
-    if (formkey.currentState!.validate()) {
-      return BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
-          userName: nameController.value.text,
-          MobileNumber: mobileController.value.text,
-          Email: emailController.value.text,
-          ));
-    } else {
-      return print("not valid details...");
-    }
-  }
+//   loginBtn() {
+//     if (formkey.currentState!.validate()) {
+//       return BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
+//         username: nameController.value.text,
+//         phone: mobileController.value.text,
+//         email: emailController.value.text,
+//           ));
+//     } else {
+//       return print("not valid details...");
+//     }
+//   }
 }

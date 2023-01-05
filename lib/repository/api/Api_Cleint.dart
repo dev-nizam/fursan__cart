@@ -30,8 +30,8 @@ class ApiClient {
       print("Methode POST OR GET");
       headerParams = {
         "authorization": "Bearer $token",
-        'Accept': 'application/json',
-        // 'Content-Type': 'application/json'
+        // 'Accept': 'application/json',
+         // 'Content-Type': 'application/json'
       };
     }
     Response response;
@@ -50,6 +50,7 @@ print(headerParams);
       case "PUT":
         response = await put(Uri.parse(url),
             headers: {
+              "authorization": "Bearer $token",
               'content-Type': 'application/json',
             },
             body: body);
@@ -60,7 +61,9 @@ print(headerParams);
       case "POST_":
         response = await post(
           Uri.parse(url),
-          headers: {},
+          headers: {
+            'content-Type': 'application/json',
+          },
           body: body,
         );
         break;
@@ -70,6 +73,13 @@ print(headerParams);
           headers: {},
           body: body,
         );
+        break;
+      case "PATCH":
+        response = await patch(Uri.parse(url),
+            headers: {
+              'content-Type': 'application/json',
+            },
+            body: body);
         break;
       default:
         response = await get(Uri.parse(url), headers: nullableHeaderParams);
