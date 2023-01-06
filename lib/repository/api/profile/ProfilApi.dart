@@ -23,16 +23,19 @@ class ApiProfile {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id= prefs.getString("id")!;
     String basePath = "/user/update/$id";
-
-    Map body = {
-      "username": username,
-      "email": email,
-      "phone": phone,
-    };
+    var map = new Map<String, dynamic>();
+    // map['phone'] = phone;
+     map = new Map<String, dynamic>();
+    map["phone"] = phone;
+   //  Map body = {
+   //   // "username": username,
+   // //   "email": email,
+   //    "phone": phone,
+   //  };
     print("api worcking>>>>>");
     Response response = await apiClient.invokeAPI(
-        path: basePath, method: "PATCH", body:body);
-
+        path: basePath, method: "PATCH", body:map);
+print(response);
     return ProfileModel.fromJson(jsonDecode(response.body));
   }
 }
