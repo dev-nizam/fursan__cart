@@ -19,6 +19,7 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+
   late ProfileModel profileModel;
   bool visible=false;
   final formkey = GlobalKey<FormState>();
@@ -74,7 +75,12 @@ class _AccountState extends State<Account> {
         profileModel=
             BlocProvider.of<ProfileBloc>(context).profileModel;
 
-        return Scaffold(
+        return BlocListener<ProfileBloc, ProfileState>(
+  listener: (context, state) {
+
+
+  },
+  child: Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -93,7 +99,7 @@ class _AccountState extends State<Account> {
             children: [
               Center(
                 child: Text(
-                  profileModel.user!.name.toString(),
+                  profileModel.user?.name == null ? "updeate your name" : profileModel.user!.name!,
                   style: TextStyle(fontSize: 25),
                 ),
               ),
@@ -293,11 +299,15 @@ class _AccountState extends State<Account> {
                              padding: EdgeInsets.only(top: 8),
                              child: TextButton(onPressed: (){
                                // loginBtn();
-                               BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
+                               BlocProvider.of<ProfileBloc>(context).add(FatchProfileEditusername(
                                  username: nameController.value.text,
-                                 phone: mobileController.value.text,
-                                 email: emailController.value.text,
                                ));
+
+                                 // TODO: implement initState
+                                 BlocProvider.of<ProfileBloc>(context).add(FatchProfile(id: 'id'));
+
+
+                            
                                print("hi btn clicked");
                              },child: Text("Update",
                                style: TextStyle(
@@ -341,10 +351,9 @@ class _AccountState extends State<Account> {
                          padding: EdgeInsets.only(top: 8),
                          child: TextButton(onPressed: (){
                            // loginBtn();
-                           BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
-                             username: nameController.value.text,
+                           BlocProvider.of<ProfileBloc>(context).add(FatchProfileEditphone(
                              phone: mobileController.value.text,
-                             email: emailController.value.text,
+
                            ));
                            print("hi btn clicked");
                          },child: Text("Update",
@@ -389,9 +398,7 @@ class _AccountState extends State<Account> {
                          padding: EdgeInsets.only(top: 8),
                          child: TextButton(onPressed: (){
                            // loginBtn();
-                           BlocProvider.of<ProfileBloc>(context).add(FatchProfileEdit(
-                             username: nameController.value.text,
-                             phone: mobileController.value.text,
+                           BlocProvider.of<ProfileBloc>(context).add(FatchProfileEditemail(
                              email: emailController.value.text,
                            ));
                            print("hi btn clicked");
@@ -454,7 +461,8 @@ class _AccountState extends State<Account> {
           ),
         ],
       ),
-    );
+    ),
+);
       }
       return Center(
         child: Text("no response"),
