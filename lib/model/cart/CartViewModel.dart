@@ -1,29 +1,75 @@
-class FavoriteModel {
-  FavoriteModel({
+class CartViewModel {
+  CartViewModel({
       this.id, 
       this.createdAt, 
       this.updatedAt, 
+      this.totalPrice, 
       this.userId, 
-      this.productsId, 
-      this.product,});
-  static List<FavoriteModel> listFromJson(List<dynamic> json) {
-    return json == null
-        ? []
-        : json.map((value) => FavoriteModel.fromJson(value)).toList();
-  }
-  FavoriteModel.fromJson(dynamic json) {
+      this.cartProducts,});
+
+  CartViewModel.fromJson(dynamic json) {
     id = json['id'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    totalPrice = json['totalPrice'];
     userId = json['userId'];
+    if (json['CartProducts'] != null) {
+      cartProducts = [];
+      json['CartProducts'].forEach((v) {
+        cartProducts?.add(CartProducts.fromJson(v));
+      });
+    }
+  }
+  String? id;
+  String? createdAt;
+  String? updatedAt;
+  String? totalPrice;
+  String? userId;
+  List<CartProducts>? cartProducts;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['createdAt'] = createdAt;
+    map['updatedAt'] = updatedAt;
+    map['totalPrice'] = totalPrice;
+    map['userId'] = userId;
+    if (cartProducts != null) {
+      map['CartProducts'] = cartProducts?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+class CartProducts {
+  CartProducts({
+      this.id, 
+      this.createdAt, 
+      this.updatedAt, 
+      this.productsId, 
+      this.cartId, 
+      this.price, 
+      this.quantity, 
+      this.product,});
+
+  CartProducts.fromJson(dynamic json) {
+    id = json['id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
     productsId = json['productsId'];
+    cartId = json['cartId'];
+    price = json['price'];
+    quantity = json['quantity'];
     product = json['product'] != null ? Product.fromJson(json['product']) : null;
   }
   String? id;
   String? createdAt;
   String? updatedAt;
-  String? userId;
   String? productsId;
+  String? cartId;
+  String? price;
+  int? quantity;
   Product? product;
 
   Map<String, dynamic> toJson() {
@@ -31,8 +77,10 @@ class FavoriteModel {
     map['id'] = id;
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
-    map['userId'] = userId;
     map['productsId'] = productsId;
+    map['cartId'] = cartId;
+    map['price'] = price;
+    map['quantity'] = quantity;
     if (product != null) {
       map['product'] = product?.toJson();
     }

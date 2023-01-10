@@ -45,24 +45,25 @@ print(headerParams);
 
     switch (method) {
       case "POST":
-        response = await post(Uri.parse(url), headers: headerParams, body: body);
+        response = await post(Uri.parse(url), headers: headerParams, body:jsonEncode(body) );
         break;
       case "PUT":
         response = await put(Uri.parse(url),
             headers: {
-              "authorization": "Bearer $token",
-              'content-Type': 'application/json',
+              'Content-Type': 'application/json'
             },
             body: body);
         break;
       case "DELETE":
-        response = await delete(Uri.parse(url), headers: nullableHeaderParams);
+        response = await delete(Uri.parse(url),   headers: {
+        "authorization": "Bearer $token",
+        'content-Type': 'application/json',
+        },);
         break;
       case "POST_":
         response = await post(
           Uri.parse(url),
           headers: {
-            // 'content-Type': 'application/json',
           },
           body: body,
         );
@@ -77,9 +78,9 @@ print(headerParams);
       case "PATCH":
         response = await patch(Uri.parse(url),
             headers: {
-              "authorization": "Bearer $token",
-              // 'Accept': '*/*',
-               "Content-Type":"multipart/form-data"
+              // "authorization": "Bearer $token",
+              // // 'Accept': '*/*',
+              //  "Content-Type":"multipart/form-data"
             },
             body: body);
         print(response);

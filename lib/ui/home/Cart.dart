@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fursan_cart/model/cart/CartViewModel.dart';
+import 'package:fursan_cart/repository/bloc/cart/cart_bloc.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -8,6 +11,13 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  void initState() {
+    // TODO: implement initState
+    BlocProvider.of<CartBloc>(context).add(FetchCartView());
+
+    super.initState();
+  }
+late CartViewModel cartViewModel;
   bool checkBoxValue = true;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,41 @@ class _CartState extends State<Cart> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Container(
+      body: BlocBuilder<CartBloc, CartState>(
+  builder: (context, state) {
+      if (state is CartLoading) {
+        print("State.........");
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      if (state is CartError) {
+        return
+          SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Container(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * .9,
+              // color: Colors.red,
+              child: const Center(
+                child: Text("something went wrong"),
+              ),
+            ),
+
+        );
+      }
+      if (state is CartLoaded) {
+        print("state loaded.......");
+        // notificationModelClass = BlocProvider.of<NotificationBloc>(context)
+        //     .notificationModelClass;
+        cartViewModel=
+            BlocProvider.of<CartBloc>(context). cartViewModel;
+
+
+        return Container(
         height: mHeight,
         color: Colors.white,
         child: ListView.separated(
@@ -73,7 +117,7 @@ class _CartState extends State<Cart> {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image:
-                                          AssetImage("asset/Tv Samsung.png"))),
+                                          NetworkImage(cartViewModel.cartProducts![index].product!.images![0].url.toString()))),
                             ),
                           ],
                         ),
@@ -155,7 +199,13 @@ class _CartState extends State<Cart> {
               );
             },
             itemCount: 10),
-      ),
+      );
+      }
+      return Center(
+        child: Text("no response"),
+      );
+    }
+),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:fursan_cart/model/favorites/FavoriteModel.dart';
 import 'package:fursan_cart/model/favorites/FavoritesModelId.dart';
 
 import 'package:fursan_cart/repository/bloc/ProductDetails/product_details_bloc.dart';
+import 'package:fursan_cart/repository/bloc/cart/cart_bloc.dart';
 import 'package:fursan_cart/repository/bloc/favorites/favorites_bloc.dart';
 
 import 'package:fursan_cart/ui/home/ProductDetails/ScreenCart.dart';
@@ -31,11 +32,11 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int Quantity = 1;
   int _current = 0;
   bool _hasBeenPressed = false;
-  
+
   late FavoritesModelId  favoritesModelId;
   @override
   Widget build(BuildContext context) {
-    
+
     final mHeight = MediaQuery.of(context).size.height;
     final mWidth = MediaQuery.of(context).size.width;
     return  Scaffold(
@@ -70,7 +71,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                               _current = index;
                             });
                           }),
-                      itemCount: 2,
+                      itemCount: widget.productDetailsModel.images!.length,
                       itemBuilder: (BuildContext context, int index,
                           int pageViewIndex) =>
                           Container(
@@ -92,8 +93,8 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                     child: Container(
                                         child: IconButton(
                                             onPressed: () async{
-                                              final preference = await SharedPreferences.getInstance();
-                                              // print(favoritesModel.productsId.toString());
+                                              // final preference = await SharedPreferences.getInstance();
+
 
                                               setState(() {
 
@@ -159,7 +160,7 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                             color: Colors.grey),
                       ),
                       Text(
-                        widget.productDetailsModel.price.toString(),
+                        widget.productDetailsModel.dicountAmount.toString(),
                         style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 14,
@@ -256,7 +257,74 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 indent: 40,
                 endIndent: 40,
               ),
-              const WidgetCounting(),
+      Column(
+        children: [
+          Container(
+            height: mHeight * .05,
+            width: mWidth * .35,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (Quantity > 1) {
+                      setState(() {
+                        Quantity--;
+                      });
+                    }
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: mHeight * .032,
+                      width: mWidth * .08,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all()),
+                      child: Icon(
+                        Icons.remove,
+                        size: 20,
+                      )),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(left: mWidth * .01),
+                      height: mHeight * .032,
+                      width: mWidth * .13,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all()),
+                      child: Text(
+                        Quantity.toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Quantity++;
+                    });
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(left: mWidth * .01),
+                    height: mHeight * .032,
+                    width: mWidth * .08,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        border: Border.all()),
+                    child: Icon(
+                      Icons.add,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
               SizedBox(
                 height: mHeight * .02,
               ),
@@ -265,10 +333,15 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                 width: mWidth * .8,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (ctx) =>  ScreenCart()));
+                      BlocProvider.of<CartBloc>(context).add(FetchCartAdd(
+                           productid: widget.productDetailsModel.id.toString(),
+                          productquantity: Quantity.toString(),
+                          productprice:widget.productDetailsModel.dicountAmount.toString(),
+                          ));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (ctx) =>  ScreenCart()));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

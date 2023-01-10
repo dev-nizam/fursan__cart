@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fursan_cart/model/ProductDetails/ProductDetailsModel.dart';
 import 'package:fursan_cart/model/favorites/FavoriteModel.dart';
 
 

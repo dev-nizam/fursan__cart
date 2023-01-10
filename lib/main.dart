@@ -10,6 +10,7 @@ import 'package:fursan_cart/repository/api/favorites/favoritesApi.dart';
 import 'package:fursan_cart/repository/api/search%20api/SearchApi.dart';
 import 'package:fursan_cart/repository/bloc/banner/banner_bloc.dart';
 import 'package:fursan_cart/repository/bloc/brandMain/brandid/brandid_bloc.dart';
+import 'package:fursan_cart/repository/bloc/cart/cart_bloc.dart';
 import 'package:fursan_cart/repository/bloc/category/catogery_bloc.dart';
 import 'package:fursan_cart/repository/bloc/profile/profile_bloc.dart';
 import 'package:fursan_cart/repository/bloc/trending/tranding_bloc.dart';
@@ -61,6 +62,7 @@ void main() async {
         BlocProvider(create: (context) => CatogeryBloc(catogeryApi)),
         BlocProvider(create: (context) => FavoritesBloc(apiFavorites)),
         BlocProvider(create: (context) => ProfileBloc()),
+        BlocProvider(create: (context) => CartBloc()),
 
 
       ],

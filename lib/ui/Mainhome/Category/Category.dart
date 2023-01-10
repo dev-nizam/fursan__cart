@@ -129,7 +129,8 @@ class _CategoryState extends State<Category> {
                       ),
                       Visibility(
                         visible: Visible == index.toString(),
-                        child: Card(
+                        child:
+                  Card(
                           elevation: 4,
                           child: SizedBox(
                             height: mHeight * .2,
@@ -143,7 +144,7 @@ class _CategoryState extends State<Category> {
                                   crossAxisSpacing: 5,
                                   mainAxisSpacing: 15),
                               itemBuilder: (BuildContext context, int indexx) {
-                                return Column(
+                                return  Column(
                                   //mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Expanded(
@@ -191,8 +192,8 @@ class _CategoryState extends State<Category> {
                               },
                             ),
                           ),
-                        ),
-                      )
+                        )
+                      ),
                     ],
                   );
                 },

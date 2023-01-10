@@ -166,7 +166,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                               ),
                                               Text(
                                                 productDetailsModel[index]
-                                                    .dicountAmount
+                                                    .price
                                                     .toString(),
                                                 style: TextStyle(
                                                     decoration: TextDecoration
@@ -175,7 +175,7 @@ class _TrendingHomeState extends State<TrendingHome> {
                                               ),
                                               Text(
                                                 productDetailsModel[index]
-                                                    .price
+                                                    .dicountAmount
                                                     .toString(),
                                                 style: TextStyle(
                                                     color: Colors.black),

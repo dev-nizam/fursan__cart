@@ -1,8 +1,8 @@
-class CartModel {
-  CartModel({
+class CartAddModel {
+  CartAddModel({
       this.msg,});
 
-  CartModel.fromJson(dynamic json) {
+  CartAddModel.fromJson(dynamic json) {
     msg = json['msg'];
   }
   String? msg;
