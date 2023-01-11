@@ -31,7 +31,9 @@ class ScreenProductDetails extends StatefulWidget {
 class _ScreenProductDetailsState extends State<ScreenProductDetails> {
   int Quantity = 1;
   int _current = 0;
-  bool _hasBeenPressed = false;
+  String Quantityy ="     1    ";
+      bool _hasBeenPressed = false;
+  TextEditingController Quantitycontroller= TextEditingController(text: "1");
 
   late FavoritesModelId  favoritesModelId;
   @override
@@ -267,11 +269,16 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    if (Quantity > 1) {
-                      setState(() {
-                        Quantity--;
-                      });
-                    }
+
+                       setState(() {
+                         if (int.parse(Quantitycontroller.text) > 1) {
+                           Quantitycontroller.text =
+                               (int.parse(Quantitycontroller.text) - 1)
+                                   .toString();
+                           // Quantity++;
+                         }
+                       });
+
                   },
                   child: Container(
                       alignment: Alignment.center,
@@ -295,15 +302,28 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3),
                           border: Border.all()),
-                      child: Text(
-                        Quantity.toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
+                      child:TextFormField(keyboardType: TextInputType.number,
+                          validator:(value) {
+                            if (value!.contains('-')) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                        controller: Quantitycontroller,
+
+
+                      )
+                      // Text(
+                      //   Quantity.toString(),
+                      //   style: TextStyle(fontWeight: FontWeight.bold),
+                      // )
+                  ),
                 ),
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      Quantity++;
+                      Quantitycontroller.text = (int.parse(Quantitycontroller.text)+1).toString();
+                      // Quantity++;
                     });
                   },
                   child: Container(
@@ -473,23 +493,23 @@ class _ScreenProductDetailsState extends State<ScreenProductDetails> {
     );
 
   }
-  List  Images=[
-    "https://rukminim1.flixcart.com/image/416/416/xif0q/air-conditioner-new/e/l/b/-original-imaggf36gs6p98gf.jpeg?q=70",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThaOZA4ek6wxHP_CeBYe40AaZD2e6S2oz-v4wZrvKNMonOqkhZxTUR0sDsAHrfPlr8-CE&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDzZQ7Q8sL3hRw68ucAF9f2EIo9P4iSRbT9bvHGkwvY5-8jnhCjOI-fIrVLA0GQ2Fjhfo&usqp=CAU",
-  ];
-  List  NAME=[
-    "ac",
-    "LG 190 L Single Door Refrigerator with Smart Inverter Compressor in Scarlet Charm Color",
-    "LG Urbane LTE Smart Watch - Silver",
-  ];
-  List  Price=[
-    "2000",
-    "5000",
-    "1000",
-  ];
-
-List cart=[
-
-];
+//   List  Images=[
+//     "https://rukminim1.flixcart.com/image/416/416/xif0q/air-conditioner-new/e/l/b/-original-imaggf36gs6p98gf.jpeg?q=70",
+//     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThaOZA4ek6wxHP_CeBYe40AaZD2e6S2oz-v4wZrvKNMonOqkhZxTUR0sDsAHrfPlr8-CE&usqp=CAU",
+//     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDzZQ7Q8sL3hRw68ucAF9f2EIo9P4iSRbT9bvHGkwvY5-8jnhCjOI-fIrVLA0GQ2Fjhfo&usqp=CAU",
+//   ];
+//   List  NAME=[
+//     "ac",
+//     "LG 190 L Single Door Refrigerator with Smart Inverter Compressor in Scarlet Charm Color",
+//     "LG Urbane LTE Smart Watch - Silver",
+//   ];
+//   List  Price=[
+//     "2000",
+//     "5000",
+//     "1000",
+//   ];
+//
+// List cart=[
+//
+// ];
 }
